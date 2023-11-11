@@ -8,11 +8,13 @@ const theme = extendTheme({
       100: "#001F61",
       500: "#FF8D32",
       1000: "#E4060C",
+      "brand.gray": "#D9D9D9"
     },
   },
   fonts: {
     heading: `'Mitr', mitr`,
     body: `'Mitr', mitr`,
+    bold: `'Mitr.600', mitr.600`,
   },
   styles: {
     global: {
@@ -22,6 +24,10 @@ const theme = extendTheme({
       },
     },
   },
+  sizes: {
+    xxl: "1200px",
+  
+  }
 });
 
 export default theme;
