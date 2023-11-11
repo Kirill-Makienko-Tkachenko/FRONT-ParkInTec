@@ -1,5 +1,6 @@
 import { extendTheme } from "@chakra-ui/react";
 
+
 const theme = extendTheme({
   colors: {
     brand: {
@@ -17,7 +18,7 @@ const theme = extendTheme({
     global: {
       "html, body": {
         width: "100%",
-        overflowX: "hidden", // This can help ensure that no horizontal scroll is happening because of an overflow
+        overflowX: "hidden",
       },
     },
   },

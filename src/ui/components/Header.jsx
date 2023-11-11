@@ -3,29 +3,38 @@ import React from "react";
 // eslint-disable-next-line no-unused-vars
 import theme from "../../theme";
 import PropTypes from "prop-types";
-import { Box, Flex, Heading, Button } from "@chakra-ui/react";
+import { Box, Flex, Button, Image, Stack, Text } from "@chakra-ui/react";
+import LogoLight from "../../assets/LogoLight.png";
 
+import '@fontsource/mitr/200.css'
 
 function Header({ height }) {
+
   return (
     <Box
-      bg="brand.50"
+      bg="brand.100"
       boxShadow="md"
-      height={height}
+      height={height !== 0 ? height : ""}
       width={"100vw"}
     >
       <Flex
         align="center"
         justify="space-between" // Pushes items to opposite corners
-        
         mx="auto"
       >
-        <Heading as="h1" size="lg" color="white">
-          Your Logo or App Name
-        </Heading>
-        <Button colorScheme="white" variant="outline">
-          Login
-        </Button>
+        <Box p={3}>
+          <Image src={LogoLight} boxSize={"90px"} />
+        </Box>
+
+        <Stack spacing={20} direction="row" align="center" paddingRight={10}>
+          
+          <Button colorScheme="white" size="lg" variant='ghost' onClick={() => goToAboutUs()}>
+            <Text color={"white"} fontFamily={"theme.fonts.body"}>About Us</Text>
+          </Button>
+          <Button colorScheme="white" size="lg" variant='ghost'>
+          <Text color={"white"} fontFamily={"theme.fonts.body"}>Help</Text>
+          </Button>
+        </Stack>
       </Flex>
     </Box>
   );
@@ -38,5 +47,6 @@ Header.propTypes = {
 
 export default Header;
 
-
-
+const goToAboutUs = () => {
+  console.log('Hola xd')
+}
