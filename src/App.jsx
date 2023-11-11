@@ -1,8 +1,10 @@
-import AppProviders from "./ui/providers/routerProvuder.jsx"
-import "./App.css"
+import { RouterProvider } from "react-router-dom";
+import AppRouter from "./ui/Pages/router.jsx"; // The path to your AppRouter file
 
 function App() {
-  return <AppProviders />
+  return (
+    <RouterProvider router={AppRouter} />
+  );
 }
 
-export default App
+export default App;
