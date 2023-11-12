@@ -30,34 +30,40 @@ function Login() {
             ParkInTec{" "}
           </Text>
           <br />
-          <Box display="flex" alignItems="center" justifyContent="center">
+          <Box display="flex" alignItems="center" justifyContent="center" mt={4}>
             <Button
-              color={"#D9D9D9"}
-              h={"100px"}
-              w={"200px"}
+              bg={"#D9D9D9"}
+              h={"80px"}
+              w={"260px"}
               variant="outline"
+              borderColor={"brand.100"}
+              borderWidth={"2px"}
+              boxShadow={"0 0 8px rgba(255, 255, 255, 0.6)"}
               _hover={{
-                bg: "#001F61",
+                bg: "#EAEAEA",
               }}
             >
-              <Text fontSize={40} color={"#D9D9D9"}>
+              <Text fontSize={38} color={"#001F61"}>
                 {" "}
                 Register{" "}
               </Text>
             </Button>
           </Box>
           <br />
-          <Box display="flex" alignItems="center" justifyContent="center">
+          <Box display="flex" alignItems="center" justifyContent="center" mt={4}>
             <Button
-              color={"#D9D9D9"}
-              h={"100px"}
-              w={"200px"}
+              bg={"#D9D9D9"}
+              h={"80px"}
+              w={"260px"}
               variant="outline"
+              borderColor={"brand.100"}
+              borderWidth={"2px"}
+              boxShadow={"0 0 8px rgba(255, 255, 255, 0.6)"}
               _hover={{
-                bg: "#001F61",
+                bg: "#EAEAEA",
               }}
             >
-              <Text fontSize={40} color={"#D9D9D9"}>
+              <Text fontSize={38} color={"#001F61"}>
                 {" "}
                 Login{" "}
               </Text>
