@@ -1,12 +1,12 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
+import React from "react";
 import Header from "../components/Header";
-import { Text, Box, Grid, GridItem } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 function Dashboard() {
   return (
     <>
         <Header />
-        Dashboard
+        <Text>Hola xd</Text>
     </> 
   );
 }

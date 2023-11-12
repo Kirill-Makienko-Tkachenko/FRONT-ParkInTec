@@ -24,7 +24,7 @@ function Header({ height }) {
         justify="space-between" // Pushes items to opposite corners
         mx="auto"
       >
-        <Box p={3}>
+        <Box p={3} onClick={() => window.location.href = '/'}>
           <Image src={LogoLight} boxSize={"90px"} />
         </Box>
 
@@ -51,4 +51,5 @@ export default Header;
 
 const goToAboutUs = () => {
   console.log('Hola xd')
+  window.location.href = '/aboutus'
 }

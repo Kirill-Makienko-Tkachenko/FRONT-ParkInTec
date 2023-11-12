@@ -9,7 +9,7 @@ import {
 
 import "@fontsource/mitr/400.css";
 
-function Login() {
+function Splash() {
 
   return (
     <>
@@ -42,6 +42,7 @@ function Login() {
               _hover={{
                 bg: "#EAEAEA",
               }}
+              onClick={() => window.location.href = '/register'}
             >
               <Text fontSize={38} color={"#001F61"}>
                 {" "}
@@ -62,6 +63,7 @@ function Login() {
               _hover={{
                 bg: "#EAEAEA",
               }}
+              onClick={() => window.location.href = '/login'} // Doy 10 varos a que hay una mejor manera de hacer esto pero el copilot lo autocompleto en el segundo en el que esceribi onClick
             >
               <Text fontSize={38} color={"#001F61"}>
                 {" "}
@@ -75,4 +77,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Splash;

@@ -1,12 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
-import LoginPage from "./Login.jsx";
+import LoginPage from "./LoginPage.jsx";
 import Dashboard from "./DashboardPage.jsx";
 import { Box } from "@chakra-ui/react";
+import Splash from "./Splash.jsx";
+import RegisterPage from "./RegisterPage.jsx";
 
-function DummyPage() {
+function DummyPage() { // Para nada copie esta idea de la chamba, obviamente lo hice yo mismo
   return (
     <Box bg="brand.50" width="100vw" height="100vh" display="flex" alignItems="center" justifyContent="center">
-      Pagina placeholder
+      Pagina placeholder 
       <iframe
         width="560"
         height="315"
@@ -22,7 +24,7 @@ function DummyPage() {
 const AppRouter = createBrowserRouter([
   {
     path: "/",
-    element: <LoginPage />,
+    element: <Splash />,
   },
   {
     path: "/dashboard",
@@ -30,7 +32,15 @@ const AppRouter = createBrowserRouter([
   },
   {
     path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/aboutus",
     element: <DummyPage />,
+  },
+  {
+    path: "/register",
+    element: <RegisterPage />,
   },
 ]);
 
