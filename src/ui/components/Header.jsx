@@ -12,10 +12,12 @@ function Header({ height }) {
 
   return (
     <Box
-      bg="brand.100"
+      bg={"#002981"}
       boxShadow="md"
       height={height !== 0 ? height : ""}
       width={"100vw"}
+      borderColor={"brand.100"}
+      borderWidth={"2px"}
     >
       <Flex
         align="center"

@@ -30,38 +30,42 @@ function Splash() {
             ParkInTec{" "}
           </Text>
           <br />
-          <Box display="flex" alignItems="center" justifyContent="center">
+          <Box display="flex" alignItems="center" justifyContent="center" mt={4}>
             <Button
-              color={"brand.50"}
-              h={"100px"}
-              w={"250px"}
+              bg={"#D9D9D9"}
+              h={"80px"}
+              w={"260px"}
               variant="outline"
-              background={"white"}
+              borderColor={"brand.100"}
+              borderWidth={"2px"}
+              boxShadow={"0 0 8px rgba(255, 255, 255, 0.6)"}
               _hover={{
-                bg: "gray.300",
+                bg: "#EAEAEA",
               }}
               onClick={() => window.location.href = '/register'}
             >
-              <Text fontSize={40} color={"brand.50"}>
+              <Text fontSize={38} color={"#001F61"}>
                 {" "}
                 Register{" "}
               </Text>
             </Button>
           </Box>
           <br />
-          <Box display="flex" alignItems="center" justifyContent="center">
+          <Box display="flex" alignItems="center" justifyContent="center" mt={4}>
             <Button
-              color={"#D9D9D9"}
-              h={"100px"}
-              w={"250px"}
+              bg={"#D9D9D9"}
+              h={"80px"}
+              w={"260px"}
               variant="outline"
-              background={"white"}
+              borderColor={"brand.100"}
+              borderWidth={"2px"}
+              boxShadow={"0 0 8px rgba(255, 255, 255, 0.6)"}
               _hover={{
-                bg: "gray.300",
+                bg: "#EAEAEA",
               }}
               onClick={() => window.location.href = '/login'} // Doy 10 varos a que hay una mejor manera de hacer esto pero el copilot lo autocompleto en el segundo en el que esceribi onClick
             >
-              <Text fontSize={40} color={"brand.50"}>
+              <Text fontSize={38} color={"#001F61"}>
                 {" "}
                 Login{" "}
               </Text>
