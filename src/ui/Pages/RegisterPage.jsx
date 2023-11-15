@@ -21,7 +21,7 @@ function RegisterPage() {
   const [clicked, setClicked] = React.useState(false);
 
   const handleClick = (event) => {
-    if (event.currentTarget.id === "show-hide-button"){
+    if (event.currentTarget.id === "show-hide-button") {
       setShow(!show);
     }
     setClicked(true);
@@ -31,9 +31,7 @@ function RegisterPage() {
     <>
       <Box>
         <Header />
-        <Box bg="brand.50" width="100vw" height="100vhs">
-          <br />
-
+        <Box bg="brand.50" width="100vw" height="120vhs">
           <Text
             fontSize={120}
             textAlign="center"
@@ -59,23 +57,29 @@ function RegisterPage() {
           </Text>
           {clicked && (
             <Text
-            fontSize={20}
-            textAlign="center"
-            pt="10"
-            color={"brand.1000"}
-            fontFamily={"theme.fonts.body"}
-            fontWeight="bold"
-            mb="-1"
-          >
-            Los campos que tienen * son obligatorios
-          </Text>
+              fontSize={20}
+              textAlign="center"
+              pt="10"
+              color={"brand.1000"}
+              fontFamily={"theme.fonts.body"}
+              fontWeight="bold"
+              mb="-1"
+            >
+              Los campos que tienen * son obligatorios
+            </Text>
           )}
-          <br />
 
-          <Box display="flex" alignItems="center" justifyContent="center" mt={1}>
-           <Flex justifyContent="space-between" maxW="500px" w="100%">
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            mt={1}
+          >
+            <Flex justifyContent="space-between" maxW="500px" w="100%">
               <FormControl id="name" isRequired>
-                <FormLabel color="white" fontSize="18">Nombre</FormLabel>
+                <FormLabel color="white" fontSize="18">
+                  Nombre
+                </FormLabel>
                 <Box display="flex" alignItems="center" justifyContent="center">
                   <Input
                     placeholder="Nombre"
@@ -91,13 +95,20 @@ function RegisterPage() {
                   />
                 </Box>
               </FormControl>
-            </Flex>  
-            </Box>
-            
-          <Box display="flex" alignItems="center" justifyContent="center" mt={3}>
+            </Flex>
+          </Box>
+
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            mt={3}
+          >
             <Flex justifyContent="space-between" maxW="500px" w="100%">
               <FormControl id="matricula" isRequired>
-                <FormLabel color="white" fontSize="18">Matrícula</FormLabel>
+                <FormLabel color="white" fontSize="18">
+                  Matrícula
+                </FormLabel>
                 <Box display="flex" alignItems="center" justifyContent="center">
                   <Input
                     placeholder="Matrícula"
@@ -110,16 +121,23 @@ function RegisterPage() {
                     isInvalid
                     errorBorderColor="crimson"
                     onClick={handleClick}
-                  />  
+                  />
                 </Box>
               </FormControl>
             </Flex>
           </Box>
-        
-          <Box display="flex" alignItems="center" justifyContent="center" mt={3}>
+
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            mt={3}
+          >
             <Flex justifyContent="space-between" maxW="500px" w="100%">
               <FormControl id="password" isRequired>
-                <FormLabel color="white" fontSize="18">Contraseña</FormLabel>
+                <FormLabel color="white" fontSize="18">
+                  Contraseña
+                </FormLabel>
                 <InputGroup size="md" maxW="500px">
                   <Input
                     pr="4.5rem"
@@ -141,7 +159,11 @@ function RegisterPage() {
                     justifyContent="center"
                     marginEnd={"3"}
                   >
-                    <Button size="lg" onClick={handleClick} id="show-hide-button">
+                    <Button
+                      size="lg"
+                      onClick={handleClick}
+                      id="show-hide-button"
+                    >
                       {show ? "Hide" : "Show"}
                     </Button>
                   </InputRightElement>
@@ -149,12 +171,19 @@ function RegisterPage() {
               </FormControl>
             </Flex>
           </Box>
-          <br/>
+          <br />
 
-          <Box display="flex" alignItems="center" justifyContent="center" mt={-2}>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            mt={-2}
+          >
             <Flex justifyContent="space-between" maxW="500px" w="100%">
               <FormControl id="dob" isRequired>
-                <FormLabel color="white" fontSize="18">Fecha de nacimiento</FormLabel>
+                <FormLabel color="white" fontSize="18">
+                  Fecha de nacimiento
+                </FormLabel>
                 <Input
                   placeholder="Fecha de nacimiento"
                   size="lg"
@@ -171,7 +200,9 @@ function RegisterPage() {
               </FormControl>
               <Spacer />
               <FormControl id="car-number" isRequired ml={3}>
-                <FormLabel color="white" fontSize="18">Placa del vehículo</FormLabel>
+                <FormLabel color="white" fontSize="18">
+                  Placa del vehículo
+                </FormLabel>
                 <Input
                   placeholder="Placa del vehículo"
                   size="lg"
@@ -187,9 +218,14 @@ function RegisterPage() {
               </FormControl>
             </Flex>
           </Box>
-          
+
           <br />
-          <Box display="flex" alignItems="center" justifyContent="center" mt={3}>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            mt={3}
+          >
             <Button
               bg={"#D9D9D9"}
               h={"52px"}
@@ -209,6 +245,9 @@ function RegisterPage() {
               </Text>
             </Button>
           </Box>
+          <br />
+          <br />
+          <br />
         </Box>
       </Box>
     </>
@@ -219,5 +258,5 @@ export default RegisterPage;
 
 const onLogin = () => {
   console.error("En algun momento aqui va a haber una verificacion de usuario");
-  window.location.href = '/'
+  window.location.href = "/";
 };
