@@ -18,13 +18,20 @@ import "@fontsource/mitr/400.css";
 
 function RegisterPage() {
   const [show, setShow] = React.useState(false);
-  const handleClick = () => setShow(!show);
+  const [clicked, setClicked] = React.useState(false);
+
+  const handleClick = (event) => {
+    if (event.currentTarget.id === "show-hide-button"){
+      setShow(!show);
+    }
+    setClicked(true);
+  };
 
   return (
     <>
       <Box>
         <Header />
-        <Box bg="brand.50" width="100vw" height="90vh">
+        <Box bg="brand.50" width="100vw" height="100vhs">
           <br />
 
           <Text
@@ -34,121 +41,171 @@ function RegisterPage() {
             color={"white"}
             fontFamily={"theme.fonts.body"}
             fontWeight="bold"
+            mb="-16"
           >
             {" "}
             ParkInTec{" "}
           </Text>
           <Text
+            fontSize={42}
+            textAlign="center"
+            pt="10"
+            color={"white"}
+            fontFamily={"theme.fonts.body"}
+            fontWeight="bold"
+            mb="1"
+          >
+            Registrarte
+          </Text>
+          {clicked && (
+            <Text
             fontSize={20}
             textAlign="center"
             pt="10"
             color={"brand.1000"}
             fontFamily={"theme.fonts.body"}
             fontWeight="bold"
+            mb="-1"
           >
-            Los campos que contengan * son obligatorios
+            Los campos que tienen * son obligatorios
           </Text>
+          )}
           <br />
 
-          <FormLabel color="white">Nombre*</FormLabel>
-          <FormLabel color="white">
-            Habria que poner esto arriba del input de el nombre, y lo mismo con
-            el de contraseña, pero ya me da hueva
-          </FormLabel>
-          <Box display="flex" alignItems="center" justifyContent="center">
-            <Input
-              placeholder="Nombre*"
-              size="lg"
-              maxW={"800px"}
-              colorScheme="whiteAlpha"
-              color={"brand.50"}
-              background={"white"}
-              h={"70px"}
-              isInvalid
-              errorBorderColor="crimson"
-            />
+          <Box display="flex" alignItems="center" justifyContent="center" mt={1}>
+           <Flex justifyContent="space-between" maxW="500px" w="100%">
+              <FormControl id="name" isRequired>
+                <FormLabel color="white" fontSize="18">Nombre</FormLabel>
+                <Box display="flex" alignItems="center" justifyContent="center">
+                  <Input
+                    placeholder="Nombre"
+                    size="lg"
+                    maxW={"500px"}
+                    colorScheme="whiteAlpha"
+                    color={"brand.50"}
+                    background={"white"}
+                    h={"70px"}
+                    isInvalid
+                    errorBorderColor="crimson"
+                    onClick={handleClick}
+                  />
+                </Box>
+              </FormControl>
+            </Flex>  
+            </Box>
+            
+          <Box display="flex" alignItems="center" justifyContent="center" mt={3}>
+            <Flex justifyContent="space-between" maxW="500px" w="100%">
+              <FormControl id="matricula" isRequired>
+                <FormLabel color="white" fontSize="18">Matrícula</FormLabel>
+                <Box display="flex" alignItems="center" justifyContent="center">
+                  <Input
+                    placeholder="Matrícula"
+                    size="lg"
+                    maxW={"500px"}
+                    colorScheme="whiteAlpha"
+                    color={"brand.50"}
+                    background={"white"}
+                    h={"70px"}
+                    isInvalid
+                    errorBorderColor="crimson"
+                    onClick={handleClick}
+                  />  
+                </Box>
+              </FormControl>
+            </Flex>
           </Box>
+        
+          <Box display="flex" alignItems="center" justifyContent="center" mt={3}>
+            <Flex justifyContent="space-between" maxW="500px" w="100%">
+              <FormControl id="password" isRequired>
+                <FormLabel color="white" fontSize="18">Contraseña</FormLabel>
+                <InputGroup size="md" maxW="500px">
+                  <Input
+                    pr="4.5rem"
+                    size="lg"
+                    colorScheme="whiteAlpha"
+                    color="brand.50"
+                    background="white"
+                    h="70px"
+                    type={show ? "text" : "password"}
+                    placeholder="Contraseña nueva"
+                    isInvalid
+                    errorBorderColor="crimson"
+                  />
+                  <InputRightElement
+                    width="4rem"
+                    height="70px"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    marginEnd={"3"}
+                  >
+                    <Button size="lg" onClick={handleClick} id="show-hide-button">
+                      {show ? "Hide" : "Show"}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
+            </Flex>
+          </Box>
+          <br/>
 
-          <br />
-          <Box display="flex" alignItems="center" justifyContent="center">
-            <InputGroup size="md" maxW="800px">
-              <Input
-                pr="4.5rem"
-                size="lg"
-                colorScheme="whiteAlpha"
-                color="brand.50"
-                background="white"
-                h="70px"
-                type={show ? "text" : "password"}
-                placeholder="Ingrese su contraseña (Puede no ser la misma que la institucional)"
-                isInvalid
-                errorBorderColor="crimson"
-              />
-              <InputRightElement
-                width="4rem"
-                height="70px"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                marginEnd={"3"}
-              >
-                <Button size="lg" onClick={handleClick}>
-                  {show ? "Hide" : "Show"}
-                </Button>
-              </InputRightElement>
-            </InputGroup>
-          </Box>
-          <br />
-          <Box display="flex" alignItems="center" justifyContent="center">
-            <Flex justifyContent="space-between" maxW="800px" w="100%">
+          <Box display="flex" alignItems="center" justifyContent="center" mt={-2}>
+            <Flex justifyContent="space-between" maxW="500px" w="100%">
               <FormControl id="dob" isRequired>
-                <FormLabel color="white">Fecha de nacimiento</FormLabel>
+                <FormLabel color="white" fontSize="18">Fecha de nacimiento</FormLabel>
                 <Input
                   placeholder="Fecha de nacimiento"
                   size="lg"
                   type="date"
-                  maxW={"390px"} // half of 800px considering some space for margin
+                  maxW={"250px"} // half of 500px considering some space for margin
                   colorScheme="whiteAlpha"
                   color={"brand.50"}
                   background={"white"}
                   h={"70px"}
                   isInvalid
                   errorBorderColor="crimson"
+                  onClick={handleClick}
                 />
               </FormControl>
               <Spacer />
-              <FormControl id="car-number" isRequired>
-                <FormLabel color="white">Placa del coche</FormLabel>
+              <FormControl id="car-number" isRequired ml={3}>
+                <FormLabel color="white" fontSize="18">Placa del vehículo</FormLabel>
                 <Input
-                  placeholder="Placa del coche*"
+                  placeholder="Placa del vehículo"
                   size="lg"
-                  maxW={"390px"} // half of 800px considering some space for margin
+                  maxW={"250px"} // half of 500px considering some space for margin
                   colorScheme="whiteAlpha"
                   color={"brand.50"}
                   background={"white"}
                   h={"70px"}
                   isInvalid
                   errorBorderColor="crimson"
+                  onClick={handleClick}
                 />
               </FormControl>
             </Flex>
           </Box>
+          
           <br />
-          <Box display="flex" alignItems="center" justifyContent="center">
+          <Box display="flex" alignItems="center" justifyContent="center" mt={3}>
             <Button
-              color={"#D9D9D9"}
-              h={"100px"}
-              w={"250px"}
+              bg={"#D9D9D9"}
+              h={"52px"}
+              w={"210px"}
               variant="outline"
-              background={"white"}
+              borderColor={"brand.100"}
+              borderWidth={"2px"}
+              boxShadow={"0 0 8px rgba(255, 255, 255, 0.6)"}
               _hover={{
-                bg: "gray.300",
+                bg: "#EAEAEA",
               }}
               onClick={() => onLogin()} // Doy 10 varos a que hay una mejor manera de hacer esto pero el copilot lo autocompleto en el segundo en el que esceribi onClick
             >
-              <Text fontSize={40} color={"brand.50"}>
+              <Text fontSize={30} color={"brand.50"}>
                 {" "}
-                Entrar{" "}
+                Continuar{" "}
               </Text>
             </Button>
           </Box>
