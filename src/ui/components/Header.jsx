@@ -24,7 +24,7 @@ function Header({ height }) {
         justify="space-between" // Pushes items to opposite corners
         mx="auto"
       >
-        <Box p={3} onClick={() => window.location.href = '/'}>
+        <Box p={3} _hover={{ cursor: "pointer" }} onClick={() => window.location.href = '/'}>
           <Image src={LogoLight} boxSize={"90px"} />
         </Box>
 
