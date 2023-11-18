@@ -21,7 +21,7 @@ for (let i = 0; i < 19; i++) {
         resultado = resultado - 5;
     }
     if (i == 18)
-        resultado = resultado - 10;
+        resultado = resultado - 3;
 
 
     spacePositions.push(`${resultado}px`);
@@ -62,15 +62,6 @@ const ParkingSpace = ({ id, status, onSelect }) => {
       ...prevSpaces,
       [col]: prevSpaces[col].map((selected, idx) => idx === index ? !selected : selected),
     }));
-  };
-
-  // Generate positions for the first set of parking spaces
-  const generatePositions = (start, end, offsetAdjustments) => {
-    return Array.from({ length: end - start + 1 }, (_, i) => {
-      let baseTop = 220 + (start + i) * 29;
-      let adjustment = offsetAdjustments.find(adj => adj.index === start + i)?.offset || 0;
-      return `${baseTop - adjustment}px`;
-    });
   };
 
   return (
