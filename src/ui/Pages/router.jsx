@@ -4,6 +4,7 @@ import Dashboard from "./DashboardPage.jsx";
 import { Box } from "@chakra-ui/react";
 import Splash from "./Splash.jsx";
 import RegisterPage from "./RegisterPage.jsx";
+import AboutUsPage from "./AboutUsPage.jsx";
 
 function DummyPage() { // Para nada copie esta idea de la chamba, obviamente lo hice yo mismo
   return (
@@ -36,7 +37,7 @@ const AppRouter = createBrowserRouter([
   },
   {
     path: "/aboutus",
-    element: <DummyPage />,
+    element: <AboutUsPage />,
   },
   {
     path: "/register",

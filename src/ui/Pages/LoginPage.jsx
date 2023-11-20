@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 import Header from "../components/Header";
-import { Text, Box, Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
+import { Text, Box, Button, Input, InputGroup, InputRightElement, Flex, FormControl, FormLabel} from "@chakra-ui/react";
 
 import "@fontsource/mitr/400.css";
 
@@ -28,56 +28,95 @@ function LoginPage() {
             ParkInTec{" "}
           </Text>
           <br />
-          <Box display="flex" alignItems="center" justifyContent="center">
-            <Input
-              placeholder="Correo con matricula institucional 'A014XXXXX@tec.mx'"
-              size="lg"
-              maxW={"800px"}
-              colorScheme="whiteAlpha"
-              color={"brand.50"}
-              background={"white"}
-              h={"70px"}
-            />
-          </Box>
+          <Flex justifyContent="center" alignItems="center" w="100%">
+            <Flex justifyContent="center" alignItems="center" maxW="500px" w="100%">
+                <FormControl id="identifier">
+                    <FormLabel color="white" fontSize="18">
+                        Identifier
+                    </FormLabel>
+                    <Box display="flex" alignItems="center" justifyContent="center">
+                        <Input
+                            placeholder="Identifier (Enrollment)"
+                            size="lg"
+                            maxW={"800px"}
+                            colorScheme="whiteAlpha"
+                            color={"brand.50"}
+                            background={"white"}
+                            h={"70px"}
+                        />
+                    </Box>
+                </FormControl>
+            </Flex>
           <br />
-          <Box display="flex" alignItems="center" justifyContent="center">
-            <InputGroup size="md" maxW="800px">
-              <Input
-                pr="4.5rem"
-                size="lg"
-                colorScheme="whiteAlpha"
-                color="brand.50"
-                background="white"
-                h="70px"
-                type={show ? "text" : "password"}
-                placeholder="Ingrese su contraseña (Puede no ser la misma que la institucional)"
-              />
-              <InputRightElement  width="4rem" height="70px" display="flex" alignItems="center" justifyContent="center" marginEnd={"3"}>
-                <Button size="lg" onClick={handleClick}>
-                  {show ? "Hide" : "Show"}
-                </Button>
-              </InputRightElement>
-            </InputGroup>
-          </Box>
+          </Flex>
+          <Flex justifyContent="center" alignItems="center" w="100%">
+          <Flex justifyContent="center" alignItems="center" maxW="500px" w="100%">
+                <FormControl id="password">
+                    <FormLabel color="white" fontSize="18">
+                        Password
+                    </FormLabel>
+                    <InputGroup size="md" maxW="500px">
+                  <Input
+                    pr="4.5rem"
+                    size="lg"
+                    colorScheme="whiteAlpha"
+                    color="brand.50"
+                    background="white"
+                    h="70px"
+                    type={show ? "text" : "password"}
+                    placeholder="ParkInTec Password"
+                    isInvalid
+                    errorBorderColor="crimson"
+                  />
+                  <InputRightElement
+                    width="4rem"
+                    height="70px"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    marginEnd={"3"}
+                  >
+                    <Button
+                      size="lg"
+                      onClick={handleClick}
+                      id="show-hide-button"
+                    >
+                      {show ? "Hide" : "Show"}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+                </FormControl>
+            </Flex>
+          </Flex>
           <br />
-          <Box display="flex" alignItems="center" justifyContent="center">
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            mt={3}
+          >
             <Button
-              color={"#D9D9D9"}
-              h={"100px"}
-              w={"250px"}
+              bg={"#D9D9D9"}
+              h={"52px"}
+              w={"210px"}
               variant="outline"
-              background={"white"}
+              borderColor={"brand.100"}
+              borderWidth={"2px"}
+              boxShadow={"0 0 8px rgba(255, 255, 255, 0.6)"}
               _hover={{
-                bg: "gray.300",
+                bg: "#EAEAEA",
               }}
-              onClick={() => onLogin()} // Doy 10 varos a que hay una mejor manera de hacer esto pero el copilot lo autocompleto en el segundo en el que esceribi onClick
+              onClick={() => onLogin()}
             >
-              <Text fontSize={40} color={"brand.50"}>
+              <Text fontSize={30} color={"brand.50"}>
                 {" "}
-                Entrar{" "}
+                Log In{" "}
               </Text>
             </Button>
           </Box>
+          <br />
+          <br />
+          <br />
         </Box>
       </Box>
     </>

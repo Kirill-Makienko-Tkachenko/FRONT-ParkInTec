@@ -10,6 +10,12 @@ const theme = extendTheme({
       1000: "#E4060C",
       "brand.gray": "#D9D9D9"
     },
+    signal: {
+      red: "#E4060C",
+      yellow: "#FF8D32",
+      green: "#00928C",
+      selected: "#F09F00"
+    },
   },
   fonts: {
     heading: `'Mitr', mitr`,

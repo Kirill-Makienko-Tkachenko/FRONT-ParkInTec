@@ -53,9 +53,14 @@ function RegisterPage() {
             fontWeight="bold"
             mb="1"
           >
-            Registrarte
+            Register
           </Text>
-          {clicked && (
+          <Box
+            onClick={handleClick}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
             <Text
               fontSize={20}
               textAlign="center"
@@ -64,11 +69,13 @@ function RegisterPage() {
               fontFamily={"theme.fonts.body"}
               fontWeight="bold"
               mb="-1"
+              visibility={clicked ? 'visible' : 'hidden'}
+              opacity={clicked ? 1 : 0}
+              transition="opacity 0.3s"
             >
-              Los campos que tienen * son obligatorios
+              * Please fill all the fields
             </Text>
-          )}
-
+          </Box>
           <Box
             display="flex"
             alignItems="center"
@@ -78,11 +85,11 @@ function RegisterPage() {
             <Flex justifyContent="space-between" maxW="500px" w="100%">
               <FormControl id="name" isRequired>
                 <FormLabel color="white" fontSize="18">
-                  Nombre
+                  Name
                 </FormLabel>
                 <Box display="flex" alignItems="center" justifyContent="center">
                   <Input
-                    placeholder="Nombre"
+                    placeholder="10 or less alphanumeric characters"
                     size="lg"
                     maxW={"500px"}
                     colorScheme="whiteAlpha"
@@ -90,8 +97,8 @@ function RegisterPage() {
                     background={"white"}
                     h={"70px"}
                     isInvalid
-                    errorBorderColor="crimson"
-                    onClick={handleClick}
+                    onClick={() => setClicked(true)}
+                    errorBorderColor={clicked ? "crimson" : undefined}
                   />
                 </Box>
               </FormControl>
@@ -107,11 +114,11 @@ function RegisterPage() {
             <Flex justifyContent="space-between" maxW="500px" w="100%">
               <FormControl id="matricula" isRequired>
                 <FormLabel color="white" fontSize="18">
-                  Matrícula
+                  Enrollment number
                 </FormLabel>
                 <Box display="flex" alignItems="center" justifyContent="center">
                   <Input
-                    placeholder="Matrícula"
+                    placeholder="Enrollment number (A0XXXXXXX)"
                     size="lg"
                     maxW={"500px"}
                     colorScheme="whiteAlpha"
@@ -136,7 +143,7 @@ function RegisterPage() {
             <Flex justifyContent="space-between" maxW="500px" w="100%">
               <FormControl id="password" isRequired>
                 <FormLabel color="white" fontSize="18">
-                  Contraseña
+                  Create a password
                 </FormLabel>
                 <InputGroup size="md" maxW="500px">
                   <Input
@@ -147,7 +154,7 @@ function RegisterPage() {
                     background="white"
                     h="70px"
                     type={show ? "text" : "password"}
-                    placeholder="Contraseña nueva"
+                    placeholder="A combination between letters and numbers"
                     isInvalid
                     errorBorderColor="crimson"
                   />
@@ -182,7 +189,7 @@ function RegisterPage() {
             <Flex justifyContent="space-between" maxW="500px" w="100%">
               <FormControl id="dob" isRequired>
                 <FormLabel color="white" fontSize="18">
-                  Fecha de nacimiento
+                  Date of birth
                 </FormLabel>
                 <Input
                   placeholder="Fecha de nacimiento"
@@ -201,10 +208,9 @@ function RegisterPage() {
               <Spacer />
               <FormControl id="car-number" isRequired ml={3}>
                 <FormLabel color="white" fontSize="18">
-                  Placa del vehículo
+                  Vehicle plate
                 </FormLabel>
                 <Input
-                  placeholder="Placa del vehículo"
                   size="lg"
                   maxW={"250px"} // half of 500px considering some space for margin
                   colorScheme="whiteAlpha"
@@ -241,7 +247,7 @@ function RegisterPage() {
             >
               <Text fontSize={30} color={"brand.50"}>
                 {" "}
-                Continuar{" "}
+                Register{" "}
               </Text>
             </Button>
           </Box>
