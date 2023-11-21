@@ -89,7 +89,7 @@ function RegisterPage() {
                 </FormLabel>
                 <Box display="flex" alignItems="center" justifyContent="center">
                   <Input
-                    placeholder="10 or less alphanumeric characters"
+                    placeholder="10 or less characters"
                     size="lg"
                     maxW={"500px"}
                     colorScheme="whiteAlpha"
@@ -105,6 +105,35 @@ function RegisterPage() {
             </Flex>
           </Box>
 
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            mt={1}
+          >
+            <Flex justifyContent="space-between" maxW="500px" w="100%">
+              <FormControl id="name" isRequired>
+                <FormLabel color="white" fontSize="18">
+                  Last name
+                </FormLabel>
+                <Box display="flex" alignItems="center" justifyContent="center">
+                  <Input
+                    placeholder="20 or less characters"
+                    size="lg"
+                    maxW={"500px"}
+                    colorScheme="whiteAlpha"
+                    color={"brand.50"}
+                    background={"white"}
+                    h={"70px"}
+                    isInvalid
+                    onClick={() => setClicked(true)}
+                    errorBorderColor={clicked ? "crimson" : undefined}
+                  />
+                </Box>
+              </FormControl>
+            </Flex>
+          </Box>
+          
           <Box
             display="flex"
             alignItems="center"
