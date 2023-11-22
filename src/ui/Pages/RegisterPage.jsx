@@ -32,7 +32,7 @@ function RegisterPage() {
       <Box>
         <Header />
         <Box bg="brand.50" width="100vw" height="120vhs">
-          <Text
+          <Text 
             fontSize={120}
             textAlign="center"
             pt="10"
@@ -44,7 +44,7 @@ function RegisterPage() {
             {" "}
             ParkInTec{" "}
           </Text>
-          <Text
+          <Text 
             fontSize={42}
             textAlign="center"
             pt="10"
@@ -83,7 +83,7 @@ function RegisterPage() {
             mt={1}
           >
             <Flex justifyContent="space-between" maxW="500px" w="100%">
-              <FormControl id="name" isRequired>
+              <FormControl id="nombre" isRequired>
                 <FormLabel color="white" fontSize="18">
                   Name
                 </FormLabel>
@@ -112,7 +112,7 @@ function RegisterPage() {
             mt={1}
           >
             <Flex justifyContent="space-between" maxW="500px" w="100%">
-              <FormControl id="name" isRequired>
+              <FormControl id="apellido" isRequired>
                 <FormLabel color="white" fontSize="18">
                   Last name
                 </FormLabel>
@@ -235,7 +235,7 @@ function RegisterPage() {
                 />
               </FormControl>
               <Spacer />
-              <FormControl id="car-number" isRequired ml={3}>
+              <FormControl id="placas" isRequired ml={3}>
                 <FormLabel color="white" fontSize="18">
                   Vehicle plate
                 </FormLabel>
@@ -272,7 +272,7 @@ function RegisterPage() {
               _hover={{
                 bg: "#EAEAEA",
               }}
-              onClick={() => onLogin()} // Doy 10 varos a que hay una mejor manera de hacer esto pero el copilot lo autocompleto en el segundo en el que esceribi onClick
+              onClick={() => onRegister()} // Doy 10 varos a que hay una mejor manera de hacer esto pero el copilot lo autocompleto en el segundo en el que esceribi onClick
             >
               <Text fontSize={30} color={"brand.50"}>
                 {" "}
@@ -289,9 +289,38 @@ function RegisterPage() {
   );
 }
 
-export default RegisterPage;
 
-const onLogin = () => {
-  console.error("En algun momento aqui va a haber una verificacion de usuario");
-  window.location.href = "/";
-};
+const onRegister = () => {
+  const nombre = document.getElementById("nombre").value
+  const apellido = document.getElementById("apellido").value
+  const matricula = document.getElementById("matricula").value
+  const password = document.getElementById("password").value
+  const placas = document.getElementById("placas").value
+
+  if (nombre === "" || apellido === "" || matricula === "" || password === "" || placas === "") {
+    console.log("Please fill all the fields")
+  }
+  else {
+    fetch("http://localhost:3000/Usuario", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      }, 
+      body: JSON.stringify({
+        Nombre: nombre,
+        Apellido: apellido,
+        Matricula: matricula,
+        Password: password,
+        Placas: placas
+      })
+    }).then(result => result.json())
+    .then(data => {
+      console.log(data)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
+}
+
+export default RegisterPage;
