@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Box, Image, Text, Select, Flex } from "@chakra-ui/react";
 import Cuadricula from "../../assets/Group 1.svg";
-import CarVector from "../../assets/noun-car-top-view-3914609 5.svg"; // Unused in this snippet
+import CarVector from "../../assets/noun-car-top-view-3914609 5.svg"; // Unused in this snippet, meant to mean occupied space
 import ParkSelector from "../../assets/Rectangle 18.png";
 
-// Enum or array of top positions for each parking space
+/*
 
+  Estimada alma caritativa que esta revisando este codigo, porfavor, hazte un favor y no lo revises.
+  Esto es una amalgamacion de cosas que tuve que hacer en putiza para que sirva, la verdad ni yo entiendo que chingados esta escrito aqui
+  Si por alguna razon tienes que revisar esto te sugiero que lo pases por alguna IA para que lo explique
+  Voy a intentar comentar esto de la mejor manera para que sea entendible, aparte de que esto probablemente podria ser abstraido mucho mas
+  En todo caso, gracias por visitar :)
+
+*/
+
+// Esto es la mejor manera de calcular las posiciones en las cuales deben de ir los cuadros naranjas, calcula relativo a un punto de partida
+// Es esto o hacer un array con cada posicion, que la verdad no estoy dispuesto a hacer
 const spacePositions = [];
 for (let i = 0; i < 19; i++) {
   let resultado = 220 + i * 29;
@@ -38,51 +48,18 @@ for (let i = 7; i < 19; i++) {
   spacePositions2.push(`${resultado}px`);
 }
 
-const ParkingSpace = ({ id, status, onSelect }) => {
-  const [occupancyStatus, setOccupancyStatus] = useState({});
+const ParkingSpace = () => {
+  const [selectedSpace, setSelectedSpace] = useState(null); // Track the currently selected space - Meaning the "Coordinate" of the parking space, for example col: 1st col and 5th space, in a JSON, refer to commented line 112
 
-  const [selectedSpace, setSelectedSpace] = useState(null); // Track the currently selected space
+  // Refering to the above useState, the 1st col is actually the larger inner one whilst the 2nd is the lager outer one, on the right, so they are not in order.
 
-  const [numberSpace, setNumberSpace] = useState(null); // Track the currently selected space number
+  const [selectedSpaceNumber, setSelectedSpaceNumber] = useState(null);  // Track the currently selected space number, from 1 to 62
+
 
   const [carPositions, setCarPositions] = useState(
+    // Will be used for setting the occupied car section
     new Array(spacePositions.length).fill(false)
   );
-
-  useEffect(() => {
-    // Handle ID to auto-select a space
-    if (typeof id === 'number' && id >= 0 && id <= 44) {
-      let col, index;
-      if (id < 19) {
-        col = "firstCol";
-        index = id;
-      } else if (id < 38) {
-        col = "secondCol";
-        index = id - 19;
-      } else if (id < 44) {
-        col = "thirdCol";
-        index = id - 28;
-      } else {
-        col = "fourthCol";
-        index = id - 40;
-      }
-
-      setSelectedSpace({ col, index });
-      setNumberSpace(id);
-    }
-  }, [id]);
-
-
-  const columnNumbering = {
-    firstCol: 1,
-    secondCol: 2,
-    thirdCol: 3,
-    fourthCol: 4,
-  };
-
-  useEffect(() => {
-    console.log(numberSpace); // Log the updated numberSpace whenever it changes
-  }, [numberSpace]);
 
   /* Este codigo es en teoria para jalar posiciones de ocupado de la API, para ejemplo en clase podemos hardcodearlo
     
@@ -106,44 +83,48 @@ const ParkingSpace = ({ id, status, onSelect }) => {
     
     */
 
-const handleSpaceClick = (col, index) => {
-  if (carPositions[index]) {
-    // If there's a car in this space, do not proceed
-    return;
-  }
+  /*useEffect(() => {
+    console.log(numberSpace); // This "Asynchronously" (When the value gets updated)  will print the calculated number space from line 96
+  }, [numberSpace]);*/
 
-  let spaceNumber;
-  if (col === "firstCol") {
-    spaceNumber = index;
-  } else if (col === "secondCol") {
-    spaceNumber = index + 19;
-  } else if (col === "thirdCol") {
-    spaceNumber = (index - 7) + 28;
-  } else if (col === "fourthCol") {
-    spaceNumber = (index - 7) + 40;
-  }
+  const handleSpaceClick = (col, index) => {
+    // Used to handle whenever a click is made in the parking "board"
+    if (carPositions[index]) {
+      // If there's a car in this space, do not proceed
+      return;
+    }
 
-  setSelectedSpaceNumber(spaceNumber); // Update the selected space number for the Select box
+    //This section is to acctually calculate the parking space number
+    if (col === "firstCol") {
+      setSelectedSpaceNumber(index);
+    } else if (col === "secondCol") {
+      setSelectedSpaceNumber(index + 19);
+    } else if (col === "thirdCol") {
+      setSelectedSpaceNumber(index + 38);
+    } else if (col === "fourthCol") {
+      setSelectedSpaceNumber(index + 50);
+    }
 
-  const isSelected = selectedSpace?.col === col && selectedSpace?.index === index;
-  setSelectedSpace(isSelected ? null : { col, index });
-  startCountdown();
-};
-  
+    
 
+    // Checks if the space is already selected, if it is, it will deselect it
+    const isSelected =
+      selectedSpace?.col === col && selectedSpace?.index === index;  
+    setSelectedSpace(isSelected ? null : { col, index }); // This updates the column number and the index of the selected space, using the "Coordinate" system mentioned above
+    const isDeselecting = // This is only used for reseting the timer
+      selectedSpace?.col === col && selectedSpace?.index === index;
+    if (isDeselecting) {
+      resetSelection(); // Reset selection and stop the timer
+    } else {
+      startCountdown(); // Start the countdown timer
+    }
+  };
 
-  const [selectedSpaces, setSelectedSpaces] = useState({
-    firstCol: new Array(19).fill(false),
-    secondCol: new Array(19).fill(false),
-    thirdCol: new Array(12).fill(false),
-    fourthCol: new Array(12).fill(false),
-  });
-
-  const [selectedSpaceNumber, setSelectedSpaceNumber] = useState(null);
   
 
   const handleSelectChange = (event) => {
-    const spaceNumber = parseInt(event.target.value, 10) - 1;
+    // This is to handle the dropdown menu, it will set the selected space number to the value of the dropdown, this is the actual logic for that
+    const spaceNumber = parseInt(event.target.value, 10) - 1; // Gets the value of the dropdown and subtracts 1 to get the actual index of the space, esta funcion es rarita no la programe yo, lo hizo ChatGPT
     setSelectedSpaceNumber(spaceNumber);
     // Logic to visually select the space based on the dropdown
     // Assuming space numbers start from 0
@@ -151,22 +132,32 @@ const handleSpaceClick = (col, index) => {
     let col, index;
     if (spaceNumber < 19) {
       col = "firstCol";
+      console.log(spaceNumber);
       index = spaceNumber;
     } else if (spaceNumber < 38) {
       col = "secondCol";
+      console.log(spaceNumber);
       index = spaceNumber - 19;
     } else if (spaceNumber < 50) {
       col = "thirdCol";
       console.log(spaceNumber);
-      index = (spaceNumber-10) - 28;
+      index = spaceNumber - 10 - 28;
     } else {
       col = "fourthCol";
-      index = (spaceNumber-10) - 40;
+      index = spaceNumber - 10 - 40;
     }
     setSelectedSpace({ col, index });
-    startCountdown();
+    if (selectedSpaceNumber === spaceNumber) {
+      resetSelection(); // Reset selection and stop the timer
+    } else {
+      startCountdown(); // Start the countdown timer
+    }
   };
 
+
+  /**
+   * A partir de aqui ya no tengo tiempo de comentar mas, pero basicamente esto es para el timer, mucha suerte
+   */
 
   const countdownDuration = 3 * 60; // 3 minutes in seconds
   const [timer, setTimer] = useState(null);
@@ -194,156 +185,153 @@ const handleSpaceClick = (col, index) => {
   const resetSelection = () => {
     setSelectedSpace(null);
     setSelectedSpaceNumber(null);
-    setNumberSpace(null);
     setRemainingTime(countdownDuration);
     if (timer) {
       clearInterval(timer);
+      setTimer(null);
     }
   };
 
-
-
   return (
     <>
-    <Box>
-      {spacePositions.map((topPosition, index) => (
-        <Box
-          key={`firstCol-${index}`}
-          position="absolute"
-          top={topPosition}
-          right="490px"
-          zIndex={10}
-          h="25px"
-          w="65px"
-          onClick={() => handleSpaceClick("firstCol", index)}
-          cursor="pointer"
-        >
-          {selectedSpace &&
-            selectedSpace.col === "firstCol" &&
-            selectedSpace.index === index && (
-              <Image src={ParkSelector} h="25px" w="65px" />
-            )}
-          {carPositions[index] && <Image src={CarVector} h="25px" w="65px" />}
-        </Box>
-      ))}
-      {spacePositions.map((topPosition, index) => (
-        <Box
-          key={`secondCol-${index}`}
-          position="absolute"
-          top={topPosition}
-          right="420px"
-          zIndex={10}
-          h="25px"
-          w="65px"
-          onClick={() => handleSpaceClick("secondCol", index)}
-          cursor="pointer"
-        >
-          {selectedSpace &&
-            selectedSpace.col === "secondCol" &&
-            selectedSpace.index === index && (
-              <Image src={ParkSelector} h="25px" w="65px" />
-            )}
-        </Box>
-      ))}
-      {spacePositions2.map((topPosition, index) => (
-        <Box
-          key={`thirdCol-${index}`}
-          position="absolute"
-          top={topPosition}
-          right="625px"
-          zIndex={10}
-          h="25px"
-          w="65px"
-          onClick={() => handleSpaceClick("thirdCol", index)}
-          cursor="pointer"
-        >
-          {selectedSpace &&
-            selectedSpace.col === "thirdCol" &&
-            selectedSpace.index === index && (
-              <Image src={ParkSelector} h="25px" w="65px" />
-            )}
-        </Box>
-      ))}
-      {spacePositions2.map((topPosition, index) => (
-        <Box
-          key={`fourthCol-${index}`}
-          position="absolute"
-          top={topPosition}
-          right="694px"
-          zIndex={10}
-          h="25px"
-          w="65px"
-          onClick={() => handleSpaceClick("fourthCol", index)}
-          cursor="pointer"
-        >
-          {selectedSpace &&
-            selectedSpace.col === "fourthCol" &&
-            selectedSpace.index === index && (
-              <Image src={ParkSelector} h="25px" w="65px" />
-            )}
-        </Box>
-      ))}
-      <Image
-        src={Cuadricula}
-        boxSize={"780px"}
-        bg={"#D9D9D9"}
-        position={"absolute"}
-        top={40}
-        right={"200px"}
-        padding={"50px"}
-      />
-    </Box>
-    <Flex align="center" justify="center" marginStart={20} maxW={600}>
-    <Text
-      fontSize={50}
-      textAlign="center"
-      pt={5}
-      color="white"
-      fontFamily="theme.fonts.body"
-      fontWeight="bold"
-    >
-      Reserved:
-    </Text>
-    <Select
-      value={selectedSpaceNumber !== null ? selectedSpaceNumber + 1 : ""}
-      onChange={handleSelectChange}
-      
-      placeholder="Selected Parking Space"
-      size="lg"
-      mt={6}
-      paddingStart={8}
-      variant="filled"
-    >
-      {[...Array(62).keys()].map((num) => (
-        <option key={num + 1} value={num + 1}>
-          {num + 1}
-        </option>
-      ))}
-    </Select>
-  </Flex>
-  <Flex
-          align="center"
-          justify="center"
-          marginStart={20}
-          maxW={600}
-          direction={"column"}
-        >
-          <Text
-            fontSize={50}
-            textAlign="center"
-            pt={5}
-            color="white"
-            fontFamily="theme.fonts.body"
-            fontWeight="bold"
+      <Box>
+        {spacePositions.map((topPosition, index) => (
+          <Box
+            key={`firstCol-${index}`}
+            position="absolute"
+            top={topPosition}
+            right="490px"
+            zIndex={10}
+            h="25px"
+            w="65px"
+            onClick={() => handleSpaceClick("firstCol", index)}
+            cursor="pointer"
           >
-            Time remaining:
-          </Text>
-          <Text fontSize={30} color="white">
-          {Math.floor(remainingTime / 60)}:{String(remainingTime % 60).padStart(2, '0')} minutes
+            {selectedSpace &&
+              selectedSpace.col === "firstCol" &&
+              selectedSpace.index === index && (
+                <Image src={ParkSelector} h="25px" w="65px" />
+              )}
+            {carPositions[index] && <Image src={CarVector} h="25px" w="65px" />}
+          </Box>
+        ))}
+        {spacePositions.map((topPosition, index) => (
+          <Box
+            key={`secondCol-${index}`}
+            position="absolute"
+            top={topPosition}
+            right="420px"
+            zIndex={10}
+            h="25px"
+            w="65px"
+            onClick={() => handleSpaceClick("secondCol", index)}
+            cursor="pointer"
+          >
+            {selectedSpace &&
+              selectedSpace.col === "secondCol" &&
+              selectedSpace.index === index && (
+                <Image src={ParkSelector} h="25px" w="65px" />
+              )}
+          </Box>
+        ))}
+        {spacePositions2.map((topPosition, index) => (
+          <Box
+            key={`thirdCol-${index}`}
+            position="absolute"
+            top={topPosition}
+            right="625px"
+            zIndex={10}
+            h="25px"
+            w="65px"
+            onClick={() => handleSpaceClick("thirdCol", index)}
+            cursor="pointer"
+          >
+            {selectedSpace &&
+              selectedSpace.col === "thirdCol" &&
+              selectedSpace.index === index && (
+                <Image src={ParkSelector} h="25px" w="65px" />
+              )}
+          </Box>
+        ))}
+        {spacePositions2.map((topPosition, index) => (
+          <Box
+            key={`fourthCol-${index}`}
+            position="absolute"
+            top={topPosition}
+            right="694px"
+            zIndex={10}
+            h="25px"
+            w="65px"
+            onClick={() => handleSpaceClick("fourthCol", index)}
+            cursor="pointer"
+          >
+            {selectedSpace &&
+              selectedSpace.col === "fourthCol" &&
+              selectedSpace.index === index && (
+                <Image src={ParkSelector} h="25px" w="65px" />
+              )}
+          </Box>
+        ))}
+        <Image
+          src={Cuadricula}
+          boxSize={"780px"}
+          bg={"#D9D9D9"}
+          position={"absolute"}
+          top={40}
+          right={"200px"}
+          padding={"50px"}
+        />
+      </Box>
+      <Flex align="center" justify="center" marginStart={20} maxW={600}>
+        <Text
+          fontSize={50}
+          textAlign="center"
+          pt={5}
+          color="white"
+          fontFamily="theme.fonts.body"
+          fontWeight="bold"
+        >
+          Reserved:
         </Text>
-          
-        </Flex>
-  </>
+        <Select
+          value={selectedSpaceNumber !== null ? selectedSpaceNumber + 1 : ""}
+          onChange={handleSelectChange}
+          placeholder="Selected Parking Space"
+          size="lg"
+          mt={6}
+          paddingStart={8}
+          variant="filled"
+        >
+          {[...Array(62).keys()].map((num) => (
+            <option key={num + 1} value={num + 1}>
+              {num + 1}
+            </option>
+          ))}
+        </Select>
+      </Flex>
+      <Flex
+        align="center"
+        justify="center"
+        marginStart={20}
+        maxW={600}
+        direction={"column"}
+      >
+        <Text
+          fontSize={50}
+          textAlign="center"
+          pt={5}
+          color="white"
+          fontFamily="theme.fonts.body"
+          fontWeight="bold"
+        >
+          Time remaining:
+        </Text>
+        <Text fontSize={30} color="white">
+          {Math.floor(remainingTime / 60)}:
+          {String(remainingTime % 60).padStart(2, "0")} minutes
+        </Text>
+      </Flex>
+    </>
   );
 };
 

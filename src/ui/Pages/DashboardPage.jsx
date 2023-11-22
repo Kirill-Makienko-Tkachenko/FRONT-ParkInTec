@@ -1,21 +1,14 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState, useEffect } from "react";
+import React, {  } from "react";
 import Header from "../components/Header";
 import {
   Text,
   Box,
-  Image,
-  Select,
   Table,
-  Thead,
   Tbody,
-  Tfoot,
   Tr,
-  Th,
   Td,
-  TableCaption,
   TableContainer,
-  Flex,
 } from "@chakra-ui/react";
 import ParkingSpace from "../components/ParkingSpace";
 
