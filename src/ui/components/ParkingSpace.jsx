@@ -114,7 +114,7 @@ const handleSpaceClick = (col, index) => {
 
   let spaceNumber;
   if (col === "firstCol") {
-    spaceNumber = index * 1;
+    spaceNumber = index;
   } else if (col === "secondCol") {
     spaceNumber = index + 19;
   } else if (col === "thirdCol") {
@@ -123,11 +123,14 @@ const handleSpaceClick = (col, index) => {
     spaceNumber = (index - 7) + 40;
   }
 
-  setNumberSpace(spaceNumber);
+  setSelectedSpaceNumber(spaceNumber); // Update the selected space number for the Select box
 
   const isSelected = selectedSpace?.col === col && selectedSpace?.index === index;
   setSelectedSpace(isSelected ? null : { col, index });
+  startCountdown();
 };
+  
+
 
   const [selectedSpaces, setSelectedSpaces] = useState({
     firstCol: new Array(19).fill(false),
@@ -135,6 +138,70 @@ const handleSpaceClick = (col, index) => {
     thirdCol: new Array(12).fill(false),
     fourthCol: new Array(12).fill(false),
   });
+
+  const [selectedSpaceNumber, setSelectedSpaceNumber] = useState(null);
+  
+
+  const handleSelectChange = (event) => {
+    const spaceNumber = parseInt(event.target.value, 10) - 1;
+    setSelectedSpaceNumber(spaceNumber);
+    // Logic to visually select the space based on the dropdown
+    // Assuming space numbers start from 0
+    // You might need to adjust this logic based on your space numbering and layout
+    let col, index;
+    if (spaceNumber < 19) {
+      col = "firstCol";
+      index = spaceNumber;
+    } else if (spaceNumber < 38) {
+      col = "secondCol";
+      index = spaceNumber - 19;
+    } else if (spaceNumber < 50) {
+      col = "thirdCol";
+      console.log(spaceNumber);
+      index = (spaceNumber-10) - 28;
+    } else {
+      col = "fourthCol";
+      index = (spaceNumber-10) - 40;
+    }
+    setSelectedSpace({ col, index });
+    startCountdown();
+  };
+
+
+  const countdownDuration = 3 * 60; // 3 minutes in seconds
+  const [timer, setTimer] = useState(null);
+  const [remainingTime, setRemainingTime] = useState(countdownDuration);
+
+  // Function to start the countdown timer
+  const startCountdown = () => {
+    if (timer) {
+      clearInterval(timer); // Clear any existing timer
+    }
+    setRemainingTime(countdownDuration);
+    const newTimer = setInterval(() => {
+      setRemainingTime((prevTime) => {
+        if (prevTime <= 1) {
+          clearInterval(newTimer); // Clear timer when it reaches zero
+          resetSelection(); // Reset selection
+          return countdownDuration;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+    setTimer(newTimer);
+  };
+
+  const resetSelection = () => {
+    setSelectedSpace(null);
+    setSelectedSpaceNumber(null);
+    setNumberSpace(null);
+    setRemainingTime(countdownDuration);
+    if (timer) {
+      clearInterval(timer);
+    }
+  };
+
+
 
   return (
     <>
@@ -238,6 +305,8 @@ const handleSpaceClick = (col, index) => {
       Reserved:
     </Text>
     <Select
+      value={selectedSpaceNumber !== null ? selectedSpaceNumber + 1 : ""}
+      onChange={handleSelectChange}
       
       placeholder="Selected Parking Space"
       size="lg"
@@ -245,13 +314,35 @@ const handleSpaceClick = (col, index) => {
       paddingStart={8}
       variant="filled"
     >
-      {[...Array(44).keys()].map((num) => (
+      {[...Array(62).keys()].map((num) => (
         <option key={num + 1} value={num + 1}>
           {num + 1}
         </option>
       ))}
     </Select>
   </Flex>
+  <Flex
+          align="center"
+          justify="center"
+          marginStart={20}
+          maxW={600}
+          direction={"column"}
+        >
+          <Text
+            fontSize={50}
+            textAlign="center"
+            pt={5}
+            color="white"
+            fontFamily="theme.fonts.body"
+            fontWeight="bold"
+          >
+            Time remaining:
+          </Text>
+          <Text fontSize={30} color="white">
+          {Math.floor(remainingTime / 60)}:{String(remainingTime % 60).padStart(2, '0')} minutes
+        </Text>
+          
+        </Flex>
   </>
   );
 };

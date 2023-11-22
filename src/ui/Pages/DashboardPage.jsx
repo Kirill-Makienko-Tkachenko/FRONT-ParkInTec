@@ -20,32 +20,7 @@ import {
 import ParkingSpace from "../components/ParkingSpace";
 
 function Dashboard() {
-  const [selectedValue, setSelectedValue] = useState(0);
-
-  const handleSelectChange = (event) => {
-    setSelectedValue(event.target.value);
-    console.log(selectedValue);
-  };
-
-  const [selectedSpaceNumber, setSelectedSpaceNumber] = useState(null);
-  const [startTime, setStartTime] = useState(null);
-  const [elapsedTime, setElapsedTime] = useState(0);
-
-  useEffect(() => {
-    let interval;
-    if (startTime) {
-      interval = setInterval(() => {
-        setElapsedTime(Math.floor((Date.now() - startTime) / 1000)); // Update every second
-      }, 1000);
-    }
-
-    return () => clearInterval(interval); // Clear interval on unmount
-  }, [startTime]);
-
-  const handleSpaceSelect = (number) => {
-    setSelectedSpaceNumber(number);
-    setStartTime(Date.now()); // Start the timer
-  };
+  
 
   return (
     <>
@@ -100,7 +75,7 @@ function Dashboard() {
         </Box>
         <br />
         
-        <ParkingSpace id={selectedValue} onSelect={handleSpaceSelect}/>
+        <ParkingSpace/>
 
         
       </Box>
