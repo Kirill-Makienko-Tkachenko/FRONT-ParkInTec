@@ -32,7 +32,7 @@ function LoginPage() {
             <Flex justifyContent="center" alignItems="center" maxW="500px" w="100%">
                 <FormControl id="identifier">
                     <FormLabel color="white" fontSize="18">
-                        Identifier
+                        Identifier 
                     </FormLabel>
                     <Box display="flex" alignItems="center" justifyContent="center">
                         <Input
@@ -125,7 +125,24 @@ function LoginPage() {
 
 export default LoginPage;
 
-const onLogin = () => {
-  console.error("En algun momento aqui va a haber una verificacion de usuario");
-  window.location.href = '/'
-};
+const onLogin = async () => {
+  const usuario = document.getElementById("identifier").value
+  const password = document.getElementById("password").value
+
+  const result = await fetch("http://localhost:3000/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      Matricula: usuario,
+      Password: password
+    })
+  })
+  const data = await result.json()
+  if (data[0] && data[0].conteo && data[0].conteo > 0) {
+    alert("Logged in");
+    console.log("Logged in");
+  }
+  
+}
