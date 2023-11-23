@@ -30,7 +30,7 @@ function Dashboard() {
             fontFamily={"theme.fonts.body"}
             fontWeight="bold"
           >
-            Avaliability
+            Availability
           </Text>
 
           <br />

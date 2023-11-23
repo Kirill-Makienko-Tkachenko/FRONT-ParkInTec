@@ -27,6 +27,9 @@ function RegisterPage() {
     setClicked(true);
   };
 
+  
+
+
   return (
     <>
       <Box>

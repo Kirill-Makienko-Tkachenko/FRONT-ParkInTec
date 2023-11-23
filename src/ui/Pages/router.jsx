@@ -42,6 +42,10 @@ const AppRouter = createBrowserRouter([
     path: "/register",
     element: <RegisterPage />,
   },
+  {
+    path: "/help",
+    element: <DummyPage />,
+  },
 ]);
 
 export default AppRouter;
