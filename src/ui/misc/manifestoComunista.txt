@@ -11,3 +11,13 @@ JAJAJA A HUEVO DOMINE AL PUTO
 Ojalá no nos funen ._.
 
 
+
+/*
+
+  Estimada alma caritativa que esta revisando este codigo, porfavor, hazte un favor y no lo revises.
+  Esto es una amalgamacion de cosas que tuve que hacer en putiza para que sirva, la verdad ni yo entiendo que chingados esta escrito aqui
+  Si por alguna razon tienes que revisar esto te sugiero que lo pases por alguna IA para que lo explique
+  Voy a intentar comentar esto de la mejor manera para que sea entendible, aparte de que esto probablemente podria ser abstraido mucho mas
+  En todo caso, gracias por visitar :)
+
+*/
