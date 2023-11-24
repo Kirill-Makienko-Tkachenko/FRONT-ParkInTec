@@ -32,17 +32,17 @@ function AboutUsPage() {
                     <CharacteristicCard
                         imageUrl="src/assets/real-time-icon.svg"
                         titleText="Real-Time Availability Tracking"
-                        descriptionText="Aquí va un choro"
+                        descriptionText="At ParkInTec, sensors in each parking space communicate directly with our database, delivering instant updates on availability."
                     />
                     <CharacteristicCard
                         imageUrl="src/assets/privacy-icon.svg"
-                        titleText="Data privacy and security"
-                        descriptionText="Aquí va un choro x2"
+                        titleText="Data Privacy and Security"
+                        descriptionText="Ensuring paramount security for your data is our commitment. With advanced systems and strict privacy measures, we provide reassurance in the parking experience."
                     />
                     <CharacteristicCard
                         imageUrl="src/assets/future-icon.svg"
-                        titleText="Vision for the future"
-                        descriptionText="Aquí va un choro"
+                        titleText="Vision for the Future"
+                        descriptionText="We strive for parking innovations that are seamless, efficient, and connected. Join us as we redefine the future of parking experiences."
                     />
                 </Flex>
             </Box>
@@ -52,17 +52,17 @@ function AboutUsPage() {
                 </Flex>
                 <Flex className="developers-container" justifyContent="center" alignItems="center" h="100%">
                     <DeveloperProp
-                        imageUrl="src\assets\LogoWhite.png" 
+                        imageUrl="src\assets\Desiree.jpg" 
                         headingText="Desirée Espinosa" 
                         bodyText="Project Manager / Front-End Developer / UX & UI"
                     />
                     <DeveloperProp
-                        imageUrl="src\assets\LogoWhite.png" 
+                        imageUrl="src\assets\Dulce.JPG" 
                         headingText="Dulce Bucio" 
                         bodyText="Front-End and Back-End Developer / UX & UI / Electronics"
                     />
                     <DeveloperProp
-                        imageUrl="src\assets\LogoWhite.png" 
+                        imageUrl="src\assets\Kirill.jpg" 
                         headingText="Kirill Makienko" 
                         bodyText="Front-End / Back-End Developer "
                     />
