@@ -4,7 +4,7 @@ import "@fontsource/mitr/400.css";
 
 const CharacteristicCard = ({ imageUrl, titleText, descriptionText }) => {
     return (
-        <Flex borderRadius="8px" bg="brand.brand.gray" variant="outline" borderWidth="2px" boxShadow="0 0 8px rgba(255, 255, 255, 0.6)" width="30%" height="25%" margin="2%">
+        <Flex borderRadius="8px" bg="brand.brand.gray" variant="outline" borderWidth="2px" boxShadow="0 0 8px rgba(255, 255, 255, 0.6)" width="35%" height="30%" margin="2%">
             <Box paddingTop="1%" paddingLeft="2%">
                 <Image src={imageUrl} alt="Icon" h="80%" />
             </Box>

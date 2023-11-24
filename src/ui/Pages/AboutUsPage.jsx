@@ -37,16 +37,16 @@ function AboutUsPage() {
                     <CharacteristicCard
                         imageUrl="src/assets/privacy-icon.svg"
                         titleText="Data Privacy and Security"
-                        descriptionText="Ensuring paramount security for your data is our commitment. With advanced systems and strict privacy measures, we provide reassurance in the parking experience."
+                        descriptionText="Ensuring paramount security for your data is our commitment. With strict privacy measures, we provide reassurance in the parking experience."
                     />
                     <CharacteristicCard
                         imageUrl="src/assets/future-icon.svg"
                         titleText="Vision for the Future"
-                        descriptionText="We strive for parking innovations that are seamless, efficient, and connected. Join us as we redefine the future of parking experiences."
+                        descriptionText="We strive for parking innovations that are efficient and connected. Join us as we redefine the future of parking experiences."
                     />
                 </Flex>
             </Box>
-            <Box bg="brand.brand.gray" width="100vw" height="55vh">
+            <Box bg="brand.brand.gray" width="100vw" height="50vh" overflow="hidden">
                 <Flex className="textContainer-4" justifyContent="center" width="100%" padding="1%">
                         <Heading color = "brand.50" text-align = "center" font-family="Mitr" font-size="48px" font-style="normal" font-weight="400" line-height="normal" padding=".5%" >Developers</Heading>
                 </Flex>
@@ -68,6 +68,7 @@ function AboutUsPage() {
                     />
                 </Flex>
             </Box>
+            
         </Box>
         </>
     )

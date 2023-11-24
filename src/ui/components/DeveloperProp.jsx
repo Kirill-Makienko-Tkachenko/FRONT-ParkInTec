@@ -3,7 +3,7 @@ import { Flex, Box, Image, Text, Heading } from '@chakra-ui/react';
 
 const DeveloperProp = ({ imageUrl, headingText, bodyText }) => {
     return (
-        <Flex className="developer-container" justifyContent="center" alignItems="center" flexDirection="column" h="100%" w="30%"  >
+        <Flex className="developer-container" justifyContent="center" alignItems="center" flexDirection="column" h="100%" w="30%">
             <Image
                 borderRadius='full'
                 boxSize='200px'
