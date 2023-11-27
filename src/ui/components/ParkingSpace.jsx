@@ -53,35 +53,32 @@ const ParkingSpace = () => {
 
   // Refering to the above useState, the 1st col is actually the larger inner one whilst the 2nd is the lager outer one, on the right, so they are not in order.
 
-  const [selectedSpaceNumber, setSelectedSpaceNumber] = useState(null);  // Track the currently selected space number, from 1 to 62
-
+  const [selectedSpaceNumber, setSelectedSpaceNumber] = useState(null); // Track the currently selected space number, from 1 to 62
 
   const [carPositions, setCarPositions] = useState(
     // Will be used for setting the occupied car section
     new Array(spacePositions.length).fill(false)
   );
 
-  /* Este codigo es en teoria para jalar posiciones de ocupado de la API, para ejemplo en clase podemos hardcodearlo
-    
-    const placeCarInSpace = (index) => {
-  setCarPositions(prevCarPositions => {
-    const newCarPositions = [...prevCarPositions];
-    newCarPositions[index] = true; // Place a car in the specified index
-    return newCarPositions;
-  });
-};
-    
-    useEffect(() => {
-  // Example API call
-  fetch('/api/getCarPosition')
-    .then(response => response.json())
-    .then(data => {
-      placeCarInSpace(data.spaceIndex);
+  const placeCarInSpace = (index) => {
+    setCarPositions((prevCarPositions) => {
+      const newCarPositions = [...prevCarPositions];
+      newCarPositions[index] = true;
+      return newCarPositions;
     });
-}, []);
-    
-    
-    */
+  };
+
+  useEffect(() => {
+    // Example API call
+    fetch("http://localhost:3000/ocupacion")
+      .then((response) => response.json())
+      .then((data) => {
+        data.forEach((item) => {
+          console.log(item.Cajon_idCajon);
+          placeCarInSpace(item.Cajon_idCajon);
+        });
+      });
+  }, []);
 
   /*useEffect(() => {
     console.log(numberSpace); // This "Asynchronously" (When the value gets updated)  will print the calculated number space from line 96
@@ -105,11 +102,9 @@ const ParkingSpace = () => {
       setSelectedSpaceNumber(index + 50);
     }
 
-    
-
     // Checks if the space is already selected, if it is, it will deselect it
     const isSelected =
-      selectedSpace?.col === col && selectedSpace?.index === index;  
+      selectedSpace?.col === col && selectedSpace?.index === index;
     setSelectedSpace(isSelected ? null : { col, index }); // This updates the column number and the index of the selected space, using the "Coordinate" system mentioned above
     const isDeselecting = // This is only used for reseting the timer
       selectedSpace?.col === col && selectedSpace?.index === index;
@@ -119,8 +114,6 @@ const ParkingSpace = () => {
       startCountdown(); // Start the countdown timer
     }
   };
-
-  
 
   const handleSelectChange = (event) => {
     // This is to handle the dropdown menu, it will set the selected space number to the value of the dropdown, this is the actual logic for that
@@ -153,7 +146,6 @@ const ParkingSpace = () => {
       startCountdown(); // Start the countdown timer
     }
   };
-
 
   /**
    * A partir de aqui ya no tengo tiempo de comentar mas, pero basicamente esto es para el timer, mucha suerte
