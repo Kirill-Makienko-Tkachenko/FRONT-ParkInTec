@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react";
+import React , { useState } from "react";
 import Header from "../components/Header";
 import {
   Text,
@@ -12,13 +12,90 @@ import {
   Spacer,
   FormControl,
   FormLabel,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  AlertDialogCloseButton,
+  useDisclosure
 } from "@chakra-ui/react";
 
-import "@fontsource/mitr/400.css";
+import theme from "../../theme";
+
 
 function RegisterPage() {
   const [show, setShow] = React.useState(false);
   const [clicked, setClicked] = React.useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [errorMessage, setErrorMessage] = React.useState("");
+
+  const validateMatricula = async (matricula) => {
+    try {
+      const response = await fetch("http://localhost:3000/Usuario/validate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          Matricula: matricula
+        })
+      });
+
+      if (response.status === 200) { // Assuming 200 means valid entry
+        return true;
+      } else {
+        setErrorMessage("The enrollment number is already in use");
+        onOpen();
+        return false;
+      }
+    } catch (err) {
+      console.log(err);
+      setErrorMessage("An error occurred during validation");
+      onOpen();
+      return false;
+    }
+  }
+
+  const onRegister = async () => {
+    const nombre = document.getElementById("nombre").value;
+    const apellido = document.getElementById("apellido").value;
+    const matricula = document.getElementById("matricula").value;
+    const password = document.getElementById("password").value;
+    const placas = document.getElementById("placas").value;
+
+    if (nombre === "" || apellido === ""  || matricula === "" || password === "" || placas === "") {
+      setErrorMessage("Please fill all the fields");
+      onOpen();
+    } else {
+      const isValidMatricula = await validateMatricula(matricula);
+      if (isValidMatricula) {
+        fetch("http://localhost:3000/Usuario", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          }, 
+          body: JSON.stringify({
+            Nombre: nombre,
+            Apellido: apellido,
+            Matricula: matricula,
+            Password: password,
+            Placas: placas
+          })
+        }).then(result => result.json()) 
+        .then(data => {
+          console.log(data);
+          window.location.href = "/dashboard";
+        })
+        .catch(error => {
+          console.log(error);
+          setErrorMessage("An error occurred during registration");
+          onOpen();
+        });
+      }
+    }
+  }
 
   const handleClick = (event) => {
     if (event.currentTarget.id === "show-hide-button") {
@@ -26,9 +103,6 @@ function RegisterPage() {
     }
     setClicked(true);
   };
-
-  
-
 
   return (
     <>
@@ -64,21 +138,27 @@ function RegisterPage() {
             alignItems="center"
             justifyContent="center"
           >
-            <Text
-              fontSize={20}
-              textAlign="center"
-              pt="10"
-              color={"brand.1000"}
-              fontFamily={"theme.fonts.body"}
-              fontWeight="bold"
-              mb="-1"
-              visibility={clicked ? 'visible' : 'hidden'}
-              opacity={clicked ? 1 : 0}
-              transition="opacity 0.3s"
-            >
-              * Please fill all the fields
-            </Text>
           </Box>
+          <AlertDialog
+            motionPreset='slideInBottom'
+            onClose={onClose}
+            isOpen={isOpen}
+            isCentered
+          >
+            <AlertDialogOverlay />
+            <AlertDialogContent>
+              <AlertDialogHeader>Error</AlertDialogHeader>
+              <AlertDialogCloseButton />
+              <AlertDialogBody>
+                {errorMessage}
+              </AlertDialogBody>
+              <AlertDialogFooter>
+                <Button onClick={onClose}>
+                  Close
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+      </AlertDialog>
           <Box
             display="flex"
             alignItems="center"
@@ -98,10 +178,6 @@ function RegisterPage() {
                     colorScheme="whiteAlpha"
                     color={"brand.50"}
                     background={"white"}
-                    h={"70px"}
-                    isInvalid
-                    onClick={() => setClicked(true)}
-                    errorBorderColor={clicked ? "crimson" : undefined}
                   />
                 </Box>
               </FormControl>
@@ -128,9 +204,6 @@ function RegisterPage() {
                     color={"brand.50"}
                     background={"white"}
                     h={"70px"}
-                    isInvalid
-                    onClick={() => setClicked(true)}
-                    errorBorderColor={clicked ? "crimson" : undefined}
                   />
                 </Box>
               </FormControl>
@@ -157,9 +230,6 @@ function RegisterPage() {
                     color={"brand.50"}
                     background={"white"}
                     h={"70px"}
-                    isInvalid
-                    errorBorderColor="crimson"
-                    onClick={handleClick}
                   />
                 </Box>
               </FormControl>
@@ -187,8 +257,6 @@ function RegisterPage() {
                     h="70px"
                     type={show ? "text" : "password"}
                     placeholder="A combination between letters and numbers"
-                    isInvalid
-                    errorBorderColor="crimson"
                   />
                   <InputRightElement
                     width="4rem"
@@ -232,9 +300,6 @@ function RegisterPage() {
                   color={"brand.50"}
                   background={"white"}
                   h={"70px"}
-                  isInvalid
-                  errorBorderColor="crimson"
-                  onClick={handleClick}
                 />
               </FormControl>
               <Spacer />
@@ -249,9 +314,6 @@ function RegisterPage() {
                   color={"brand.50"}
                   background={"white"}
                   h={"70px"}
-                  isInvalid
-                  errorBorderColor="crimson"
-                  onClick={handleClick}
                 />
               </FormControl>
             </Flex>
@@ -293,37 +355,5 @@ function RegisterPage() {
 }
 
 
-const onRegister = () => {
-  const nombre = document.getElementById("nombre").value
-  const apellido = document.getElementById("apellido").value
-  const matricula = document.getElementById("matricula").value
-  const password = document.getElementById("password").value
-  const placas = document.getElementById("placas").value
-
-  if (nombre === "" || apellido === "" || matricula === "" || password === "" || placas === "") {
-    console.log("Please fill all the fields")
-  }
-  else {
-    fetch("http://localhost:3000/Usuario", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      }, 
-      body: JSON.stringify({
-        Nombre: nombre,
-        Apellido: apellido,
-        Matricula: matricula,
-        Password: password,
-        Placas: placas
-      })
-    }).then(result => result.json())
-    .then(data => {
-      console.log(data)
-    })
-    .catch(error => {
-      console.log(error)
-    })
-  }
-}
 
 export default RegisterPage;

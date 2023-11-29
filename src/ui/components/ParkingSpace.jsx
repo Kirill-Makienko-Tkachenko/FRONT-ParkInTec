@@ -104,7 +104,7 @@ const ParkingSpace = () => {
     fetch(`http://localhost:3000/ocupacion/${spaceNumber}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json", 
       },
       body: JSON.stringify({
         idCajon: spaceNumber,
@@ -112,7 +112,7 @@ const ParkingSpace = () => {
       }),
     })
       .then((response) => {
-        if (!response.ok) {
+        if (!response.ok) { 
           throw new Error("Network response was not ok");
         }
         return response.json();
@@ -303,7 +303,7 @@ const ParkingSpace = () => {
               selectedSpace.index === index && (
                 <Image src={ParkSelector} h="25px" w="65px" />
               )}
-            {occupiedSpaces.includes(index + 38) && (
+            {occupiedSpaces.includes(index + 19) && (
               <Image src={CarVector} h="25px" w="65px" />
             )}
           </Box>
