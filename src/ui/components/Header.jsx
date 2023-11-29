@@ -35,7 +35,7 @@ function Header({ height }) {
           <Button colorScheme="white" size="lg" variant='ghost' onClick={() => goToAboutUs()}>
             <Text color={"white"} fontFamily={"theme.fonts.body"} fontSize="1.3em">About Us</Text>
           </Button>
-          <Button colorScheme="white" size="lg" variant='ghost'>
+          <Button colorScheme="white" size="lg" variant='ghost' onClick={() => goToHelpPage()}>
           <Text color={"white"} fontFamily={"theme.fonts.body"} fontSize="1.3em">Help</Text>
           </Button>
         </Stack>
@@ -54,4 +54,9 @@ export default Header;
 const goToAboutUs = () => {
   console.log('Hola xd')
   window.location.href = '/aboutus'
+}
+
+const goToHelpPage = () => {
+  console.log('Hola xd')
+  window.location.href = '/help'
 }

@@ -1,29 +1,24 @@
 import React from "react";
-import { Box, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon } from "@chakra-ui/react";
+import { Box, Text, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon } from "@chakra-ui/react";
 import "@fontsource/mitr/400.css";
 
-const QuestionCard = ({ titleText, descriptionText }) => {
-  const [isOpen, setIsOpen] = React.useState(false);
-
-  const handleToggle = () => {
-    setIsOpen(!isOpen);
-  };
-
+const QuestionCard = ({ titleText, children }) => {
   return (
     <AccordionItem>
       <h2>
-        <AccordionButton onClick={handleToggle}>
-          <Box as="span" flex="1" textAlign="left">
-            {titleText}
+        <AccordionButton>
+          <Box flex="1" textAlign="left">
+            <Text fontSize="lg">{titleText}</Text>
           </Box>
           <AccordionIcon />
         </AccordionButton>
       </h2>
-      <AccordionPanel pb={4} display={isOpen ? "block" : "none"}>
-        {descriptionText}
+      <AccordionPanel pb={4}>
+        {children}
       </AccordionPanel>
     </AccordionItem>
   );
 };
+
 
 export default QuestionCard;
