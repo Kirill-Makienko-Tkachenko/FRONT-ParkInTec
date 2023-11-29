@@ -15,7 +15,7 @@ import {
 import ParkingSpace from "../components/ParkingSpace";
 import weather from "../../assets/weather-icon.png";
 import theme from "../../theme";
-
+import TemperatureController from "../components/TemperatureController";
 const getTemperature = () => {
   return (
     <Text
@@ -104,11 +104,7 @@ function Dashboard() {
               <Image src={weather} boxSize={"90px"}></Image>
             </Box>
             <Box width="100%">
-              <Box border="1px solid #001F61" bg="brand.brand.gray" boxShadow={"0px 0px 6px 0px #001F61 inset"} width="50%" padding="1%" borderRadius="10px">
-            </Box>
-            <Box>
-              <getTemperature/>
-            </Box>
+              <TemperatureController/>
             </Box>
             </Flex>
         </Box>
