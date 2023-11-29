@@ -87,15 +87,21 @@ function RegisterPage() {
           })
         }).then(result => result.json())
         .then(data => {
-          if (data.error.includes('Duplicate entry')) {
+          console.log("Entramos al then")
+          if (data.includes('Duplicate entry')) {
+            console.log("Primer if")
             setErrorMessage("User already exists");
             onOpen();
-          } else if (data.error) {
+          } 
+            else if (data.error) {
+              console.log("segundo if")
             setErrorMessage(data.error);
             onOpen();
           } else {
+            console.log("tercer if")
             window.location.href = "/login";
           }
+          console.log("Llegamos al final del then")
         })
         .catch(error => {
           console.log(error);

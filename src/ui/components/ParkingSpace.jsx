@@ -303,7 +303,7 @@ const ParkingSpace = () => {
               selectedSpace.index === index && (
                 <Image src={ParkSelector} h="25px" w="65px" />
               )}
-            {occupiedSpaces.includes(index + 38) && (
+            {occupiedSpaces.includes(index + 19) && (
               <Image src={CarVector} h="25px" w="65px" />
             )}
           </Box>
