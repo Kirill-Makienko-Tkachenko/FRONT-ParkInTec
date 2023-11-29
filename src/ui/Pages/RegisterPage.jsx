@@ -29,50 +29,48 @@ function RegisterPage() {
   const [show, setShow] = React.useState(false);
   const [clicked, setClicked] = React.useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [errorMessage, setErrorMessage] = useState("");
-  /* endPoint que no sirvió de nada pq al final lo hice en el front
-  const validateUser = async (matricula) => {
-    try {
-      let response = await fetch('http://localhost:3000/Usuario/validate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ Matricula: matricula })
-      });
-  
-      const data = await response.json();
-  
-      if (!response.ok) {
-        // Handle non-200 responses
-        throw new Error(data.error || 'Error occurred while validating user');
-      }
-  
-      // Handle successful response
-      // ...
-  
-    } catch (error) {
-      console.error('Error:', error);
-      setErrorMessage(error.message); // Set the error message
-      onOpen(); // Open the alert
-    }
-  } */
-  
-  
-  
+  const [errorMessage, setErrorMessage] = React.useState("");
 
-    const onRegister = () => {
-      const nombre = document.getElementById("nombre").value
-      const apellido = document.getElementById("apellido").value
-      const matricula = document.getElementById("matricula").value
-      const password = document.getElementById("password").value
-      const placas = document.getElementById("placas").value
-    
-      if (nombre === "" || apellido === ""  || matricula === "" || password === "" || placas === "") {
-        setErrorMessage("Please fill all the fields");
+  const validateMatricula = async (matricula) => {
+    try {
+      const response = await fetch("http://localhost:3000/Usuario/validate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          Matricula: matricula
+        })
+      });
+
+      if (response.status === 200) { // Assuming 200 means valid entry
+        return true;
+      } else {
+        setErrorMessage("The enrollment number is already in use");
         onOpen();
-      } 
-      else {
+        return false;
+      }
+    } catch (err) {
+      console.log(err);
+      setErrorMessage("An error occurred during validation");
+      onOpen();
+      return false;
+    }
+  }
+
+  const onRegister = async () => {
+    const nombre = document.getElementById("nombre").value;
+    const apellido = document.getElementById("apellido").value;
+    const matricula = document.getElementById("matricula").value;
+    const password = document.getElementById("password").value;
+    const placas = document.getElementById("placas").value;
+
+    if (nombre === "" || apellido === ""  || matricula === "" || password === "" || placas === "") {
+      setErrorMessage("Please fill all the fields");
+      onOpen();
+    } else {
+      const isValidMatricula = await validateMatricula(matricula);
+      if (isValidMatricula) {
         fetch("http://localhost:3000/Usuario", {
           method: "POST",
           headers: {
@@ -85,40 +83,26 @@ function RegisterPage() {
             Password: password,
             Placas: placas
           })
-        }).then(result => result.json())
+        }).then(result => result.json()) 
         .then(data => {
-          console.log("Entramos al then")
-          if (data.includes('Duplicate entry')) {
-            console.log("Primer if")
-            setErrorMessage("User already exists");
-            onOpen();
-          } 
-            else if (data.error) {
-              console.log("segundo if")
-            setErrorMessage(data.error);
-            onOpen();
-          } else {
-            console.log("tercer if")
-            window.location.href = "/login";
-          }
-          console.log("Llegamos al final del then")
+          console.log(data);
+          window.location.href = "/dashboard";
         })
         .catch(error => {
           console.log(error);
-          setErrorMessage("Error while registering");
+          setErrorMessage("An error occurred during registration");
           onOpen();
         });
       }
     }
-    const handleClick = (event) => {
-      if (event.currentTarget.id === "show-hide-button") {
-        setShow(!show);
-      }
-      setClicked(true);
-    };
+  }
 
-  
-
+  const handleClick = (event) => {
+    if (event.currentTarget.id === "show-hide-button") {
+      setShow(!show);
+    }
+    setClicked(true);
+  };
 
   return (
     <>
