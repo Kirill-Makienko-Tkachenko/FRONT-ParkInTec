@@ -35,8 +35,8 @@ function Header({ height }) {
           <Button colorScheme="white" size="lg" variant='ghost' onClick={() => goToAboutUs()}>
             <Text color={"white"} fontFamily={"theme.fonts.body"} fontSize="1.3em">About Us</Text>
           </Button>
-          <Button colorScheme="white" size="lg" variant='ghost' onClick={()=>goToAboutUs()}>
-          <Text color={"white"} fontFamily={"theme.fonts.body"}>Help</Text>
+          <Button colorScheme="white" size="lg" variant='ghost' onClick={() => goToHelpPage()}>
+            <Text color={"white"} fontFamily={"theme.fonts.body"} fontSize="1.3em">Help</Text>
           </Button>
         </Stack>
       </Flex>
@@ -55,6 +55,6 @@ const goToAboutUs = () => {
   window.location.href = '/aboutus'
 }
 
-const goToHelp = () => {
+const goToHelpPage = () => {
   window.location.href = '/help'
 }
