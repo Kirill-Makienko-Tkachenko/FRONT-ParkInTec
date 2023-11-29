@@ -16,8 +16,8 @@ const DeveloperProp = ({ imageUrl, headingText, bodyText }) => {
                 filter= "drop-shadow(0px 0px 10px #000)"
                 objectFit="cover"
             />
-            <Heading color = "brand.50" text-align = "center" font-family="Mitr" font-size="48px" font-style="normal" font-weight="400" line-height="normal" padding=".5%" marginTop="9px" >{headingText}</Heading>
-            <Text color="brand.50" textAlign="center" fontFamily="Mitr"  fontStyle="normal" fontWeight="400" lineHeight="normal">
+            <Heading color = "brand.50" text-align = "center" font-family="Mitr" fontSize="2rem" font-style="normal" font-weight="400" line-height="normal" padding=".5%" marginTop="9px" >{headingText}</Heading>
+            <Text color="brand.50" textAlign="center" fontFamily="Mitr" fontStyle="normal" fontSize="1rem" fontWeight="400" lineHeight="normal">
                 {bodyText}
             </Text>
         </Flex>
