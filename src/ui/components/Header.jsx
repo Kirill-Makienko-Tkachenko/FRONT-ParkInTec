@@ -36,7 +36,7 @@ function Header({ height }) {
             <Text color={"white"} fontFamily={"theme.fonts.body"} fontSize="1.3em">About Us</Text>
           </Button>
           <Button colorScheme="white" size="lg" variant='ghost' onClick={() => goToHelpPage()}>
-          <Text color={"white"} fontFamily={"theme.fonts.body"} fontSize="1.3em">Help</Text>
+            <Text color={"white"} fontFamily={"theme.fonts.body"} fontSize="1.3em">Help</Text>
           </Button>
         </Stack>
       </Flex>
@@ -52,11 +52,9 @@ Header.propTypes = {
 export default Header;
 
 const goToAboutUs = () => {
-  console.log('Hola xd')
   window.location.href = '/aboutus'
 }
 
 const goToHelpPage = () => {
-  console.log('Hola xd')
   window.location.href = '/help'
 }
