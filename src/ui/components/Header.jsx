@@ -33,7 +33,7 @@ function Header({ height }) {
         <Stack spacing={20} direction="row" align="center" paddingRight={10}>
           
           <Button colorScheme="white" size="lg" variant='ghost' onClick={() => goToAboutUs()}>
-            <Text color={"white"} fontFamily={"theme.fonts.body"}>About Us</Text>
+            <Text color={"white"} fontFamily={"theme.fonts.body"} fontSize="1.3em">About Us</Text>
           </Button>
           <Button colorScheme="white" size="lg" variant='ghost' onClick={()=>goToAboutUs()}>
           <Text color={"white"} fontFamily={"theme.fonts.body"}>Help</Text>
