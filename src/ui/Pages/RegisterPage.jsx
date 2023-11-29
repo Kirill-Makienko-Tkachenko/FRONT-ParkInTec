@@ -30,7 +30,7 @@ function RegisterPage() {
   const [clicked, setClicked] = React.useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [errorMessage, setErrorMessage] = useState("");
-
+  /* endPoint que no sirvió de nada pq al final lo hice en el front
   const validateUser = async (matricula) => {
     try {
       let response = await fetch('http://localhost:3000/Usuario/validate', {
@@ -56,7 +56,7 @@ function RegisterPage() {
       setErrorMessage(error.message); // Set the error message
       onOpen(); // Open the alert
     }
-  }
+  } */
   
   
   
@@ -90,9 +90,11 @@ function RegisterPage() {
           if (data.error.includes('Duplicate entry')) {
             setErrorMessage("User already exists");
             onOpen();
-          } else {
+          } else if (data.error) {
             setErrorMessage(data.error);
             onOpen();
+          } else {
+            window.location.href = "/login";
           }
         })
         .catch(error => {
