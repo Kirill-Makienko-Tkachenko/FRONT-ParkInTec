@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Text, Box } from "@chakra-ui/react";
 import theme from "../../theme";
 
-const Cajon = 3;
+const Cajon = 16;
 const fetchTemperature = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/temp/${Cajon}`, {
+      const response = await fetch(`http://parkintec-env.eba-mmfbvnvj.us-east-1.elasticbeanstalk.com/temp/${Cajon}`, {
         method: "GET",
       });
       const temperatureJson = await response.json();

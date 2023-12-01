@@ -47,7 +47,7 @@ function AboutUsPage() {
                 </Flex>
             </Box>
             <Box bg="#FFFFFF" width="100vw" height="6vh">
-                <Flex className="textContainer-4" justifyContent="center" alignItems="center" width="100%" height="100%" padding="1%">
+                <Flex bg ="brand.brand.gray" className="textContainer-4" justifyContent="center" alignItems="center" width="100%" height="100%" padding="1%">
                     <Heading color = "brand.50" text-align = "center" font-family="Mitr" fontSize="2.25rem" font-style="normal" font-weight="400" line-height="normal" padding=".5%">Developers</Heading>
                 </Flex>
             </Box>

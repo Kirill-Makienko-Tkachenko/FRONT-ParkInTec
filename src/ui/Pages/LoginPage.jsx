@@ -38,7 +38,7 @@ const onLogin = async () => {
   }
 
   try {
-    const result = await fetch("http://localhost:3000/login", {
+    const result = await fetch("http://parkintec-env.eba-mmfbvnvj.us-east-1.elasticbeanstalk.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -85,7 +85,7 @@ function LoginPage() {
       return; // Return early to prevent sending the request
     }
     try {
-      const result = await fetch("http://localhost:3000/login", {
+      const result = await fetch("http://parkintec-env.eba-mmfbvnvj.us-east-1.elasticbeanstalk.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

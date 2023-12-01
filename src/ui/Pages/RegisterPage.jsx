@@ -34,7 +34,7 @@ function RegisterPage() {
 
   const validateMatricula = async (matricula) => {
     try {
-      const response = await fetch("http://localhost:3000/Usuario/validate", {
+      const response = await fetch("http://parkintec-env.eba-mmfbvnvj.us-east-1.elasticbeanstalk.com/Usuario/validate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +79,7 @@ function RegisterPage() {
     } else {
       const isValidMatricula = await validateMatricula(matricula);
       if (isValidMatricula) {
-        fetch("http://localhost:3000/Usuario", {
+        fetch("http://parkintec-env.eba-mmfbvnvj.us-east-1.elasticbeanstalk.com/Usuario", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -90,6 +90,7 @@ function RegisterPage() {
             Matricula: matricula,
             Password: password,
             Placas: placas,
+            idUsuario: 29
           }),
         })
           .then((result) => result.json())

@@ -64,7 +64,7 @@ const ParkingSpace = () => {
   const [occupiedSpaces, setOccupiedSpaces] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/reserved")
+    fetch("http://parkintec-env.eba-mmfbvnvj.us-east-1.elasticbeanstalk.com/reserved")
       .then((response) => response.json())
       .then((data) => {
         const occupied = data.map((item) => item.idCajon);
@@ -74,7 +74,7 @@ const ParkingSpace = () => {
   }, []);
 
   const addOccupation = (spaceNumber) => {
-    fetch(`http://localhost:3000/ocupacion/${spaceNumber}`, {
+    fetch(`http://parkintec-env.eba-mmfbvnvj.us-east-1.elasticbeanstalk.com/ocupacion/${spaceNumber}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -101,7 +101,7 @@ const ParkingSpace = () => {
   };
 
   const removeOccupation = (spaceNumber) => {
-    fetch(`http://localhost:3000/ocupacion/${spaceNumber}`, {
+    fetch(`http://parkintec-env.eba-mmfbvnvj.us-east-1.elasticbeanstalk.com/ocupacion/${spaceNumber}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json", 
