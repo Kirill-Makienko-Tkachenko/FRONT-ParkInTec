@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React , { useState } from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
 import {
   Text,
@@ -19,11 +19,12 @@ import {
   AlertDialogContent,
   AlertDialogOverlay,
   AlertDialogCloseButton,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 
 import theme from "../../theme";
 
+import GoBackArrow from "../components/goBackArrow";
 
 function RegisterPage() {
   const [show, setShow] = React.useState(false);
@@ -36,14 +37,15 @@ function RegisterPage() {
       const response = await fetch("http://localhost:3000/Usuario/validate", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          Matricula: matricula
-        })
+          Matricula: matricula,
+        }),
       });
 
-      if (response.status === 200) { // Assuming 200 means valid entry
+      if (response.status === 200) {
+        // Assuming 200 means valid entry
         return true;
       } else {
         setErrorMessage("The enrollment number is already in use");
@@ -56,7 +58,7 @@ function RegisterPage() {
       onOpen();
       return false;
     }
-  }
+  };
 
   const onRegister = async () => {
     const nombre = document.getElementById("nombre").value;
@@ -65,7 +67,13 @@ function RegisterPage() {
     const password = document.getElementById("password").value;
     const placas = document.getElementById("placas").value;
 
-    if (nombre === "" || apellido === ""  || matricula === "" || password === "" || placas === "") {
+    if (
+      nombre === "" ||
+      apellido === "" ||
+      matricula === "" ||
+      password === "" ||
+      placas === ""
+    ) {
       setErrorMessage("Please fill all the fields");
       onOpen();
     } else {
@@ -74,28 +82,29 @@ function RegisterPage() {
         fetch("http://localhost:3000/Usuario", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
-          }, 
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify({
             Nombre: nombre,
             Apellido: apellido,
             Matricula: matricula,
             Password: password,
-            Placas: placas
-          })
-        }).then(result => result.json()) 
-        .then(data => {
-          console.log(data);
-          window.location.href = "/dashboard";
+            Placas: placas,
+          }),
         })
-        .catch(error => {
-          console.log(error);
-          setErrorMessage("An error occurred during registration");
-          onOpen();
-        });
+          .then((result) => result.json())
+          .then((data) => {
+            console.log(data);
+            window.location.href = "/dashboard";
+          })
+          .catch((error) => {
+            console.log(error);
+            setErrorMessage("An error occurred during registration");
+            onOpen();
+          });
       }
     }
-  }
+  };
 
   const handleClick = (event) => {
     if (event.currentTarget.id === "show-hide-button") {
@@ -108,8 +117,10 @@ function RegisterPage() {
     <>
       <Box>
         <Header />
+
         <Box bg="brand.50" width="100vw" height="120vhs">
-          <Text 
+          <GoBackArrow />
+          <Text
             fontSize={120}
             textAlign="center"
             pt="10"
@@ -121,7 +132,7 @@ function RegisterPage() {
             {" "}
             ParkInTec{" "}
           </Text>
-          <Text 
+          <Text
             fontSize={42}
             textAlign="center"
             pt="10"
@@ -137,10 +148,9 @@ function RegisterPage() {
             display="flex"
             alignItems="center"
             justifyContent="center"
-          >
-          </Box>
+          ></Box>
           <AlertDialog
-            motionPreset='slideInBottom'
+            motionPreset="slideInBottom"
             onClose={onClose}
             isOpen={isOpen}
             isCentered
@@ -149,16 +159,12 @@ function RegisterPage() {
             <AlertDialogContent>
               <AlertDialogHeader>Error</AlertDialogHeader>
               <AlertDialogCloseButton />
-              <AlertDialogBody>
-                {errorMessage}
-              </AlertDialogBody>
+              <AlertDialogBody>{errorMessage}</AlertDialogBody>
               <AlertDialogFooter>
-                <Button onClick={onClose}>
-                  Close
-                </Button>
+                <Button onClick={onClose}>Close</Button>
               </AlertDialogFooter>
             </AlertDialogContent>
-      </AlertDialog>
+          </AlertDialog>
           <Box
             display="flex"
             alignItems="center"
@@ -209,7 +215,7 @@ function RegisterPage() {
               </FormControl>
             </Flex>
           </Box>
-          
+
           <Box
             display="flex"
             alignItems="center"
@@ -353,7 +359,5 @@ function RegisterPage() {
     </>
   );
 }
-
-
 
 export default RegisterPage;

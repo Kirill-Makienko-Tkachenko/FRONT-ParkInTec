@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import CharacteristicCard from "../components/CharacteristicCard";
 import DeveloperProp from "../components/DeveloperProp";
 import { Text, Box, Image, Select, Flex, Heading} from "@chakra-ui/react";
+import GoBackArrow from "../components/goBackArrow";
 
 import "@fontsource/mitr/400.css";
 
@@ -11,7 +12,9 @@ function AboutUsPage() {
         <>
         <Box>
             <Header />
+            
             <Box bg="brand.50" width="100vw" height="50vh">
+            <GoBackArrow />
                 <Flex className="textContainer-1" justifyContent="center" width="100%" padding="1%">
                     <Heading color = "signal.selected" text-align = "center" font-family="Mitr" fontSize="2.3rem" font-style="normal" font-weight="400" line-height="normal" padding=".5%" marginTop=".4rem" >Effortlessly</Heading>
                     <Heading color = "#FFFFFF" text-align = "center" font-family="Mitr" fontSize="2.3rem" font-style="normal" font-weight="400" line-height="normal" padding=".5%" marginTop=".4rem">Navigate and Park with</Heading>

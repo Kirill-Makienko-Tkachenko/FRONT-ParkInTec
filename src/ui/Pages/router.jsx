@@ -7,10 +7,11 @@ import RegisterPage from "./RegisterPage.jsx";
 import AboutUsPage from "./AboutUsPage.jsx";
 import HelpPage from "./HelpPage.jsx";
 
+import GoBackArrow from "../components/goBackArrow.jsx";
 function DummyPage() { // Para nada copie esta idea de la chamba, obviamente lo hice yo mismo
   return (
     <Box bg="brand.50" width="100vw" height="100vh" display="flex" alignItems="center" justifyContent="center">
-      Pagina placeholder 
+      <GoBackArrow />
       <iframe
         width="560"
         height="315"
@@ -47,6 +48,10 @@ const AppRouter = createBrowserRouter([
   {
     path: "/help",
     element: <HelpPage />,
+  },
+  {
+    path: "/fox",
+    element: <DummyPage />,
   },
 ]);
 

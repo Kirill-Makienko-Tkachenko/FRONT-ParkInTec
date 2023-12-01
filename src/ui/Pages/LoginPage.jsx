@@ -1,7 +1,16 @@
 // eslint-disable-next-line no-unused-vars
-import React, {useState } from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
-import { Text, Box, Button, Input, InputGroup, InputRightElement, Flex, FormControl, FormLabel,
+import {
+  Text,
+  Box,
+  Button,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Flex,
+  FormControl,
+  FormLabel,
   AlertDialog,
   AlertDialogBody,
   AlertDialogFooter,
@@ -9,11 +18,11 @@ import { Text, Box, Button, Input, InputGroup, InputRightElement, Flex, FormCont
   AlertDialogContent,
   AlertDialogOverlay,
   AlertDialogCloseButton,
-  useDisclosure} from "@chakra-ui/react";
+  useDisclosure,
+} from "@chakra-ui/react";
 
 import theme from "../../theme";
-
-
+import GoBackArrow from "../components/goBackArrow";
 
 const onLogin = async () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -22,7 +31,7 @@ const onLogin = async () => {
   const password = document.getElementById("password").value;
 
   // Check for empty fields
-  if (usario = "" || password == "") {
+  if ((usario = "" || password == "")) {
     setErrorMessage("Please fill all the fields");
     onOpen();
     return; // Return early to prevent sending the request
@@ -32,12 +41,12 @@ const onLogin = async () => {
     const result = await fetch("http://localhost:3000/login", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         Matricula: usuario,
-        Password: password
-      })
+        Password: password,
+      }),
     });
 
     const data = await result.json();
@@ -52,11 +61,11 @@ const onLogin = async () => {
       onOpen();
     }
   } catch (error) {
-    console.error('Login Error:', error);
+    console.error("Login Error:", error);
     setErrorMessage("Network error or server not responding");
     onOpen();
   }
-}
+};
 
 function LoginPage() {
   const [show, setShow] = useState(false);
@@ -79,16 +88,16 @@ function LoginPage() {
       const result = await fetch("http://localhost:3000/login", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           Matricula: usuario,
-          Password: password
-        })
+          Password: password,
+        }),
       });
-  
+
       const data = await result.json();
-  
+
       // Check if login was successful
       if (data[0] && data[0].conteo && data[0].conteo > 0) {
         window.location.href = "/dashboard";
@@ -98,32 +107,30 @@ function LoginPage() {
         onOpen();
       }
     } catch (error) {
-      console.error('Login Error:', error);
+      console.error("Login Error:", error);
       setErrorMessage("Network error or server not responding");
       onOpen();
     }
-  }
+  };
 
   return (
     <>
-    <AlertDialog isOpen={isOpen} onClose={onClose} isCentered>
-      <AlertDialogOverlay />
-              <AlertDialogContent>
-                <AlertDialogHeader>Error</AlertDialogHeader>
-                <AlertDialogCloseButton />
-                <AlertDialogBody>
-                  {errorMessage}
-                </AlertDialogBody>
-                <AlertDialogFooter>
-                  <Button onClick={onClose}>
-                    Close
-                  </Button>
-                </AlertDialogFooter>
-              </AlertDialogContent>
+      <AlertDialog isOpen={isOpen} onClose={onClose} isCentered>
+        <AlertDialogOverlay />
+        <AlertDialogContent>
+          <AlertDialogHeader>Error</AlertDialogHeader>
+          <AlertDialogCloseButton />
+          <AlertDialogBody>{errorMessage}</AlertDialogBody>
+          <AlertDialogFooter>
+            <Button onClick={onClose}>Close</Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
       </AlertDialog>
       <Box>
         <Header />
+
         <Box bg="brand.50" width="100vw" height="90vh">
+          <GoBackArrow />
           <br />
 
           <Text
@@ -139,33 +146,43 @@ function LoginPage() {
           </Text>
           <br />
           <Flex justifyContent="center" alignItems="center" w="100%">
-            <Flex justifyContent="center" alignItems="center" maxW="500px" w="100%">
-                <FormControl id="identifier">
-                    <FormLabel color="white" fontSize="18">
-                        Identifier 
-                    </FormLabel>
-                    <Box display="flex" alignItems="center" justifyContent="center">
-                        <Input
-                            placeholder="Identifier (Enrollment)"
-                            size="lg"
-                            maxW={"800px"}
-                            colorScheme="whiteAlpha"
-                            color={"brand.50"}
-                            background={"white"}
-                            h={"70px"}
-                        />
-                    </Box>
-                </FormControl>
+            <Flex
+              justifyContent="center"
+              alignItems="center"
+              maxW="500px"
+              w="100%"
+            >
+              <FormControl id="identifier">
+                <FormLabel color="white" fontSize="18">
+                  Identifier
+                </FormLabel>
+                <Box display="flex" alignItems="center" justifyContent="center">
+                  <Input
+                    placeholder="Identifier (Enrollment)"
+                    size="lg"
+                    maxW={"800px"}
+                    colorScheme="whiteAlpha"
+                    color={"brand.50"}
+                    background={"white"}
+                    h={"70px"}
+                  />
+                </Box>
+              </FormControl>
             </Flex>
-          <br />
+            <br />
           </Flex>
           <Flex justifyContent="center" alignItems="center" w="100%">
-          <Flex justifyContent="center" alignItems="center" maxW="500px" w="100%">
-                <FormControl id="password">
-                    <FormLabel color="white" fontSize="18">
-                        Password
-                    </FormLabel>
-                    <InputGroup size="md" maxW="500px">
+            <Flex
+              justifyContent="center"
+              alignItems="center"
+              maxW="500px"
+              w="100%"
+            >
+              <FormControl id="password">
+                <FormLabel color="white" fontSize="18">
+                  Password
+                </FormLabel>
+                <InputGroup size="md" maxW="500px">
                   <Input
                     pr="4.5rem"
                     size="lg"
@@ -193,7 +210,7 @@ function LoginPage() {
                     </Button>
                   </InputRightElement>
                 </InputGroup>
-                </FormControl>
+              </FormControl>
             </Flex>
           </Flex>
           <br />
@@ -232,4 +249,3 @@ function LoginPage() {
 }
 
 export default LoginPage;
-
